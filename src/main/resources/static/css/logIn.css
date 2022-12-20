@@ -79,6 +79,9 @@ body{
 }
 
 .form-heading{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     padding: 20px;
     font-size: 20px;
     background-color: #37474F;
