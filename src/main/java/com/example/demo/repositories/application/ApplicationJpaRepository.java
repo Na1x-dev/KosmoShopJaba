@@ -10,5 +10,5 @@ import java.util.List;
 @Repository
 public interface ApplicationJpaRepository extends JpaRepository<Application, Long> {
 
-    List<Application> getByUnionMemberSurname(String surname);
+
 }

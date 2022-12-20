@@ -1,7 +1,7 @@
 package com.example.demo.services.application;
 
 import com.example.demo.models.Application;
-import com.example.demo.models.Position;
+
 
 import java.util.List;
 
@@ -14,5 +14,4 @@ public interface ApplicationService {
 
     boolean update(Long id, Application application);
 
-    List<Application> readByUnionMemberSurname(String surname);
 }

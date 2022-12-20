@@ -1,7 +1,7 @@
 package com.example.demo.controllers.userPage;
 
 import com.example.demo.controllers.user.UserValidator;
-import com.example.demo.models.UnionMember;
+
 import com.example.demo.models.User;
 import com.example.demo.security.SecurityService;
 import com.example.demo.services.user.UserService;

@@ -7,7 +7,6 @@ import lombok.NonNull;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -20,20 +19,15 @@ public class Position {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long positionId;
 
-    @Column(name = "position_title")
+    @Column(name = "title")
     @NonNull
-    String positionTitle;
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "position")
-    @ToString.Exclude
-    List<UnionMember> unionMembers;
+    String title;
 
     public Position(){
-        positionTitle = "";
+        title = "";
     }
 
-    public Position(String positionTitle) {
-        this.positionTitle=positionTitle;
-    }
+//    public Position(String positionTitle) {
+//        this.positionTitle=positionTitle;
+//    }
 }

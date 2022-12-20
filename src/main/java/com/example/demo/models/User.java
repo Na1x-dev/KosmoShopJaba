@@ -33,6 +33,20 @@ public class User {
     @Column(name = "password")
     @NonNull String password;
 
+    @Column(name = "surname")
+    @NonNull String surname;
+
+    @Column(name = "name")
+    @NonNull String name;
+
+    @Column(name = "patronymic")
+    @NonNull String patronymic;
+
+    @ManyToOne
+    @JoinColumn(name = "position_id", nullable = false, referencedColumnName = "position_id")
+    @NonNull
+    Position position;
+
     @ManyToMany
     @NonNull
     @ToString.Exclude
@@ -60,6 +74,9 @@ public class User {
         this.passwordConfirm = passwordConfirm;
         roles = new HashSet<>();
         roles.add(role);
+        name = "";
+        surname = "";
+        patronymic = "";
     }
 
     public boolean isAdmin() {

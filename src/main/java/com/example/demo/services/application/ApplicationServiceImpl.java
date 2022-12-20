@@ -42,9 +42,6 @@ public class ApplicationServiceImpl implements ApplicationService {
         return false;
     }
 
-    @Override
-    public List<Application> readByUnionMemberSurname(String surname) {
-        return applicationJpaRepository.getByUnionMemberSurname(surname);
-    }
+
 
 }

@@ -1,9 +1,9 @@
 package com.example.demo.controllers.sale;
 
 import com.example.demo.models.*;
-import com.example.demo.services.applicationType.ApplicationTypeService;
-import com.example.demo.services.child.ChildService;
-import com.example.demo.services.gender.GenderService;
+import com.example.demo.services.status.StatusService;
+import com.example.demo.services.country.CountryService;
+import com.example.demo.services.category.CategoryService;
 import com.example.demo.services.position.PositionService;
 import com.example.demo.services.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,11 +20,11 @@ public class SaleController {
     @Autowired
     PositionService positionService;
     @Autowired
-    ChildService childService;
+    CountryService countryService;
     @Autowired
-    GenderService genderService;
+    CategoryService categoryService;
     @Autowired
-    ApplicationTypeService applicationTypeService;
+    StatusService statusService;
 //    @Autowired
 //    SupplyDetailService supplyDetailService;
     @Autowired

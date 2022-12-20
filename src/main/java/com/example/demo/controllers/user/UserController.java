@@ -4,12 +4,12 @@ import com.example.demo.models.*;
 import com.example.demo.security.SecurityService;
 
 
-import com.example.demo.services.gender.GenderService;
-import com.example.demo.services.meetingMinute.MeetingMinuteService;
-import com.example.demo.services.phoneNumber.PhoneNumberService;
+import com.example.demo.services.category.CategoryService;
+import com.example.demo.services.supply.SupplyService;
+import com.example.demo.services.product.ProductService;
 import com.example.demo.services.position.PositionService;
 import com.example.demo.services.role.RoleService;
-import com.example.demo.services.unionMember.UnionMemberService;
+import com.example.demo.services.order.OrderService;
 import com.example.demo.services.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -17,9 +17,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
-import java.security.Principal;
-import java.util.HashSet;
 
 @Controller
 public class UserController {
@@ -33,18 +30,18 @@ public class UserController {
     private RoleService roleService;
 
     @Autowired
-    private GenderService genderService;
+    private CategoryService categoryService;
 
     @Autowired
-    private UnionMemberService unionMemberService;
+    private OrderService orderService;
 
     @Autowired
-    private PhoneNumberService phoneNumberService;
+    private ProductService productService;
 
     @Autowired
     private PositionService positionService;
     @Autowired
-    private MeetingMinuteService meetingMinuteService;
+    private SupplyService supplyService;
 
     @GetMapping("/signUpPage/index")
     public String registration(Model model) {
@@ -70,12 +67,8 @@ public class UserController {
     @GetMapping("/logInPage/index")
     public String login(Model model, String error, String logout) {
         autoCreateRoles();
-        autoRegisterAdmin();
-        autoCreateGenders();
         autoCreateEmptyPosition();
-        autoCreateEmptyParent();
-        autoCreateEmptyMeetingMinute();
-        autoCreateRetireePosition();
+        autoRegisterAdmin();
         if (securityService.isAuthenticated()) {
             return "redirect:/";
         }
@@ -100,6 +93,7 @@ public class UserController {
         if (userService.findByUsername("admin") == null) {
             Role role = roleService.readByRoleName("ROLE_ADMIN");
             User admin = new User("admin", "admin", role, "admin");
+            admin.setPosition(positionService.readByTitle(""));
             userService.create(admin);
             securityService.autoLogin(admin.getUsername(), admin.getPassword());
         }
@@ -116,49 +110,49 @@ public class UserController {
         }
     }
 
-    public void autoCreateGenders() {
-        if (genderService.readByGenderTitle("Мужской") == null) {
-            Gender gender = new Gender("Мужской");
-            genderService.create(gender);
-        }
-        if (genderService.readByGenderTitle("Женский") == null) {
-            Gender gender = new Gender("Женский");
-            genderService.create(gender);
-        }
-    }
-
+//    public void autoCreateGenders() {
+//        if (genderService.readByGenderTitle("Мужской") == null) {
+//            Gender gender = new Gender("Мужской");
+//            genderService.create(gender);
+//        }
+//        if (genderService.readByGenderTitle("Женский") == null) {
+//            Gender gender = new Gender("Женский");
+//            genderService.create(gender);
+//        }
+//    }
+//
     public void autoCreateEmptyPosition() {
         if (positionService.readByTitle("") == null) {
             positionService.create(new Position());
         }
     }
-
-    public void autoCreateRetireePosition() {
-        if (positionService.readByTitle("Пенсионер") == null) {
-            positionService.create(new Position("Пенсионер"));
-        }
-    }
-
-    public void autoCreateEmptyMeetingMinute() {
-        if (meetingMinuteService.readByMeetingMinuteNumber(0) == null) {
-            meetingMinuteService.create(new MeetingMinute());
-        }
-    }
-
-    public void autoCreateEmptyParent() {
-        if (unionMemberService.readByName("") == null) {
-            UnionMember unionMember = new UnionMember();
-            unionMember.getPhoneNumbers().get(0).setUnionMember(unionMember);
-            unionMember.setGender(genderService.readByGenderTitle("Мужской"));
-            unionMember.setPosition(positionService.readByTitle(""));
-            System.out.println(unionMember);
-            unionMemberService.create(unionMember);
-            phoneNumberService.create(unionMember.getPhoneNumbers().get(0));
-        }
-    }
-
-    public void autoCreatePhoneNumber() {
-        if (phoneNumberService.readById(0L) == null) {
-        }
-    }
+//
+//    public void autoCreateRetireePosition() {
+//        if (positionService.readByTitle("Пенсионер") == null) {
+//            positionService.create(new Position("Пенсионер"));
+//        }
+//    }
+//
+//    public void autoCreateEmptyMeetingMinute() {
+//        if (meetingMinuteService.readByMeetingMinuteNumber(0) == null) {
+//            meetingMinuteService.create(new MeetingMinute());
+//        }
+//    }
+//
+//    public void autoCreateEmptyParent() {
+//        if (unionMemberService.readByName("") == null) {
+//            UnionMember unionMember = new UnionMember();
+//            unionMember.getPhoneNumbers().get(0).setUnionMember(unionMember);
+//            unionMember.setGender(genderService.readByGenderTitle("Мужской"));
+//            unionMember.setPosition(positionService.readByTitle(""));
+//            System.out.println(unionMember);
+//            unionMemberService.create(unionMember);
+//            phoneNumberService.create(unionMember.getPhoneNumbers().get(0));
+//        }
+//    }
+//
+//    public void autoCreatePhoneNumber() {
+//        if (phoneNumberService.readById(0L) == null) {
+//        }
+//    }
 }

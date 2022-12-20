@@ -2,13 +2,11 @@ package com.example.demo.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
-import org.hibernate.Hibernate;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Objects;
 
 @Entity
 @Getter
@@ -23,42 +21,47 @@ public class Application {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long applicationId;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Column(name = "register_date")
+    @Column(name = "open_date")
     @NonNull
-    Date registerDate;
+    Date openDate;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Column(name = "close_date")
+    @NonNull
+    Date closeDate;
+
+    @Column(name="description")
+    @NonNull
+    String description;
+
+    @Column(name="comment")
+    @NonNull
+    String comment;
 
     @ManyToOne
-    @JoinColumn(name = "union_member_id", nullable = false, referencedColumnName = "union_member_id")
+    @JoinColumn(name = "user_id_open", nullable = false, referencedColumnName = "id")
     @NonNull
-    UnionMember unionMember;
+    User userOpen;
+    @ManyToOne
+    @JoinColumn(name = "user_id_close", nullable = false, referencedColumnName = "id")
+    @NonNull
+    User userClose;
 
     @ManyToOne
-    @JoinColumn(name = "application_type_id", nullable = false, referencedColumnName = "application_type_id")
+    @JoinColumn(name = "status_id", nullable = false, referencedColumnName = "status_id")
     @NonNull
-    ApplicationType applicationType;
-
-    @ManyToOne
-    @JoinColumn(name = "material_payment_id", nullable = false, referencedColumnName = "material_payment_id")
-    @NonNull
-    MaterialPayment materialPayment;
-
-    @ManyToOne
-    @JoinColumn(name = "meeting_minute_id", nullable = false, referencedColumnName = "meeting_minute_id")
-    @NonNull
-    MeetingMinute meetingMinute;
+    Status status;
 
     public Application() {
-        registerDate = new Date();
-
     }
 
-    public String formatDateForChange() {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        return format.format(registerDate);
-    }
-
-    public String getDateInNormalFormat() {
-        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
-        return format.format(registerDate);
-    }
+//    public String formatDateForChange() {
+//        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+//        return format.format(registerDate);
+//    }
+//
+//    public String getDateInNormalFormat() {
+//        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+//        return format.format(registerDate);
+//    }
 }

@@ -25,16 +25,6 @@ public class PositionServiceImpl implements PositionService {
     }
 
     @Override
-    public Position readById(Long positionId) {
-        return positionJpaRepository.getByPositionId(positionId);
-    }
-
-    @Override
-    public Position readByTitle(String title) {
-        return positionJpaRepository.getByPositionTitle(title);
-    }
-
-    @Override
     public boolean delete(Long id) {
         if (positionJpaRepository.existsById(id)) {
             positionJpaRepository.deleteById(id);
@@ -54,7 +44,7 @@ public class PositionServiceImpl implements PositionService {
     }
 
     @Override
-    public Position readByPositionTitle(String title) {
-        return positionJpaRepository.readByPositionTitle(title);
+    public Position readByTitle(String title) {
+        return positionJpaRepository.getByTitle(title);
     }
 }
