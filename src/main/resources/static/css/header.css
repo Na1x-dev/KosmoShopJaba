@@ -1,36 +1,23 @@
 #header{
-    color: #777333;
+    width: 100vw;
+    background-color: #37474F;
     display: flex;
-    flex-direction: column;
-    padding: 10px;
-    border-radius: 10px;
-    width:10px;
-    height: 100vh;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
-
-header:hover #header{
-    width: 400px;
-    margin: 20px;
-    background-color: #333333;
-}
-
-header:hover .header-button{
-    display: block;
-}
-
-.header-button{
-    display: none;
-    padding: 5px;
-    font-size: 20px;
+.header-element{
+    background-color: #37474F;
+    font-size: 25px;
+    padding: 20px;
     text-decoration: none;
-    color: #dddddd;
-    margin: 5px;
-    border-radius: 5px;
-
+    color: #ffffff;
 }
 
 .header-button:hover{
-    background-color: #444444;
+    background-color: #48585F;
+}
 
+.header-text{
+    background-color: #26363E;
 }

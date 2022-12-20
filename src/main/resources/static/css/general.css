@@ -9,7 +9,7 @@
 body{
     background-color: #ffffff;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
 }
 
 .main {
