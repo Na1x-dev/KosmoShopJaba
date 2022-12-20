@@ -1,15 +1,16 @@
+
 body{
     font-family: "Montserrat";
     font-weight: 400;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    background-color: #222222;
+    background-color: #eeeeee;
 }
 
 .container{
     width: 500px;
-    height: 435px;
+    height: 400px;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -19,23 +20,22 @@ body{
 }
 
 .form-log-in {
-    background-color: #333333;
+    background-color: #ffffff;
     width: 500px;
     height: 360px;
     position: absolute;
-    border-radius: 10px;
 }
 
 #log-in-button {
-    width: 90%;
-    margin-right: 5%;
-    margin-left: 5%;
-    height: 60px;
+    width: 30%;
+    margin-right: 35%;
+    margin-left: 35%;
+    padding: 10px;
     font-size: 15px;
     color: #dddddd;
-    background-color: #444444;
+    background-color: #37474F;
     border: 0;
-    border-radius: 5px;
+    margin-top: 20px;
 }
 
 #register-text-div {
@@ -50,7 +50,7 @@ body{
 #log-in-button:hover{
     color: #dddddd;
     cursor: pointer;
-    background-color: #555555;
+    background-color: #48585F;
 }
 
 .has-error{
@@ -61,4 +61,27 @@ body{
     margin-right: -50%;
     left: 50%;
     transform: translate(-50%, 0);
+}
+
+.form-group{
+    display: flex;
+    flex-direction: column;
+}
+
+.form-control{
+    margin-top: 20px;
+    margin-bottom: 10px;
+    margin-right: 60px;
+    margin-left: 60px;
+    padding: 10px;
+    font-size: 15px;
+    border: 1px #37474F solid;
+}
+
+.form-heading{
+    padding: 20px;
+    font-size: 20px;
+    background-color: #37474F;
+    margin-bottom: 20px;
+    color: #ffffff;
 }
