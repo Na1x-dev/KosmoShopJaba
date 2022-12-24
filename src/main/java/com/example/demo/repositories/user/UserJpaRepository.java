@@ -10,4 +10,6 @@ import java.util.Set;
 @Repository
 public interface UserJpaRepository extends JpaRepository<User, Long> {
     User findByUsername(String username);
+
+    User getByUserId(Long userId);
 }

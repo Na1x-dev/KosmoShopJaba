@@ -16,4 +16,6 @@ public interface PositionService {
 
 
     Position readByTitle(String title);
+
+    Position readById(Long positionId);
 }

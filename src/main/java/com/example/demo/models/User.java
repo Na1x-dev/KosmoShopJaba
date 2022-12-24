@@ -42,7 +42,7 @@ public class User {
     @Column(name = "patronymic")
     @NonNull String patronymic;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "position_id", nullable = false, referencedColumnName = "position_id")
     @NonNull
     Position position;
@@ -77,6 +77,7 @@ public class User {
         name = "";
         surname = "";
         patronymic = "";
+        new Position();
     }
 
     public boolean isAdmin() {

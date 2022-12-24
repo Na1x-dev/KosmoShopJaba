@@ -47,4 +47,9 @@ public class PositionServiceImpl implements PositionService {
     public Position readByTitle(String title) {
         return positionJpaRepository.getByTitle(title);
     }
+
+    @Override
+    public Position readById(Long positionId) {
+        return positionJpaRepository.getByPositionId(positionId);
+    }
 }

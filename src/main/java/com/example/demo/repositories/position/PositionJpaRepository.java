@@ -9,4 +9,6 @@ import org.springframework.stereotype.Repository;
 public interface PositionJpaRepository extends JpaRepository<Position, Long> {
 
     Position getByTitle(String title);
+
+    Position getByPositionId(Long positionId);
 }

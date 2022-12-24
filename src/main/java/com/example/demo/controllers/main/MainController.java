@@ -53,24 +53,100 @@ public class MainController {
     @Autowired
     CountryService countryService;
 
+    TableMode tableMode = new TableMode();
+
     @GetMapping({"/mainPage/index"})
     public String mainPage(Model model, Principal user) {
         model.addAttribute("checkUser", userService.findByUsername(user.getName()));
-
+        model.addAttribute("shifts", shiftService.readAll());
+        model.addAttribute("applications", applicationService.readAll());
+        model.addAttribute("categories", categoryService.readAll());
+        model.addAttribute("couriers", courierService.readAll());
+        model.addAttribute("products", productService.readAll());
+        model.addAttribute("suppliers", supplierService.readAll());
+        model.addAttribute("supplies", supplyService.readAll());
+        model.addAttribute("users", userService.readAll());
+        model.addAttribute("tableMode", tableMode);
         return "mainPage/index";
     }
+
+    @GetMapping({"/mainPage/index/shiftList"})
+    public String mainPageShift(Model model, Principal user) {
+        model.addAttribute("checkUser", userService.findByUsername(user.getName()));
+        tableMode.setMode(1);
+        return "redirect:/mainPage/index";
+    }
+
+    @GetMapping({"/mainPage/index/productList"})
+    public String mainPageProduct(Model model, Principal user) {
+        model.addAttribute("checkUser", userService.findByUsername(user.getName()));
+        tableMode.setMode(2);
+        return "redirect:/mainPage/index";
+    }
+
+    @GetMapping({"/mainPage/index/categoryList"})
+    public String mainPageCategory(Model model, Principal user) {
+        model.addAttribute("checkUser", userService.findByUsername(user.getName()));
+        tableMode.setMode(3);
+        return "redirect:/mainPage/index";
+    }
+
+    @GetMapping({"/mainPage/index/supplierList"})
+    public String mainPageSupplier(Model model, Principal user) {
+        model.addAttribute("checkUser", userService.findByUsername(user.getName()));
+        tableMode.setMode(4);
+        return "redirect:/mainPage/index";
+    }
+
+    @GetMapping({"/mainPage/index/supplyList"})
+    public String mainPageSupply(Model model, Principal user) {
+        model.addAttribute("checkUser", userService.findByUsername(user.getName()));
+        tableMode.setMode(5);
+        return "redirect:/mainPage/index";
+    }
+
+    @GetMapping({"/mainPage/index/courierList"})
+    public String mainPageCourier(Model model, Principal user) {
+        model.addAttribute("checkUser", userService.findByUsername(user.getName()));
+        tableMode.setMode(6);
+        return "redirect:/mainPage/index";
+    }
+
+    @GetMapping({"/mainPage/index/applicationList"})
+    public String mainPageApplication(Model model, Principal user) {
+        model.addAttribute("checkUser", userService.findByUsername(user.getName()));
+        tableMode.setMode(7);
+        return "redirect:/mainPage/index";
+    }
+
+    @PostMapping("/mainPage/index/shiftList/update/{id}")
+    public String mainPageShiftUpdate(Model model, @ModelAttribute("shift") Shift shift, Principal user, @PathVariable("id") Long shiftId) {
+        model.addAttribute("checkUser", userService.findByUsername(user.getName()));
+        shift.setUser(userService.readById(shift.getUser().getUserId()));
+        if (shift.getUser().getUserId() != null)
+            shift.setUser(userService.readById(shift.getUser().getUserId()));
+        shiftService.update(shiftId, shift);
+        return "redirect:/mainPage/index";
+    }
+
+    @GetMapping("/mainPage/index/shiftList/delete/{id}")
+    public String mainPageShiftDelete(Model model, Principal user, @PathVariable("id") Long unionMemberId) {
+        model.addAttribute("checkUser", userService.findByUsername(user.getName()));
+        shiftService.delete(unionMemberId);
+        return "redirect:/mainPage/index";
+    }
+
 //
-//    @PostMapping("/mainPage/index/add")
-//    public String mainPageAdd(Model model, @ModelAttribute("newUnionMember") UnionMember newUnionMember, Principal user) {
-//        model.addAttribute("checkUser", userService.findByUsername(user.getName()));
-//        newUnionMember.setGender(categoryService.readById(newUnionMember.getGender().getGenderId()));
-//        if (newUnionMember.getPosition().getPositionId() != null)
-//            newUnionMember.setPosition(positionService.readById(newUnionMember.getPosition().getPositionId()));
-//        newUnionMember.getPhoneNumbers().get(0).setUnionMember(newUnionMember);
-//        orderService.create(newUnionMember);
-//        savePhoneNumber(newUnionMember);
-//        return "redirect:/mainPage/index";
-//    }
+    @PostMapping("/mainPage/index/shiftList/add")
+    public String mainPageShiftAdd(Model model,  @ModelAttribute("shift") Shift shift, Principal user) {
+        model.addAttribute("checkUser", userService.findByUsername(user.getName()));
+
+        shift.setUser(userService.readById(shift.getUser().getUserId()));
+        if (shift.getUser().getUserId() != null)
+            shift.setUser(userService.readById(shift.getUser().getUserId()));
+        shiftService.create(shift);
+        return "redirect:/mainPage/index";
+    }
 //
 //    @PostMapping("/mainPage/index/update/{id}")
 //    public String mainPageUpdate(Model model, @ModelAttribute("updateUnionMember") UnionMember updateUnionMember, Principal user, @PathVariable("id") Long unionMemberId) {

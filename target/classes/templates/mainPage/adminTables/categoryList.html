@@ -1,22 +1,4 @@
-<div class="main-table" th:fragment="list" xmlns:th="http://www.w3.org/1999/xhtml">
-
-    <div class="table-menu">
-        <a th:href="@{/mainPage/index/shiftList}">Смена</a>
-        <a th:href="@{/mainPage/index/productList}">Товар</a>
-        <a th:href="@{/mainPage/index/categoryList}">Категория</a>
-        <a th:href="@{/mainPage/index/supplierList}">Поставщик</a>
-        <a th:href="@{/mainPage/index/supplyList}">Поставка</a>
-        <a th:href="@{/mainPage/index/courierList}">Курьер</a>
-        <a th:href="@{/mainPage/index/applicationList}">Заявки</a>
-    </div>
-
-    <div class="main-table" th:replace="mainPage/adminTables/shiftList :: shift-list"></div>
-    <div class="main-table" th:replace="mainPage/adminTables/productList :: product-list"></div>
-    <div class="main-table" th:replace="mainPage/adminTables/categoryList :: category-list"></div>
-    <div class="main-table" th:replace="mainPage/adminTables/supplierList :: supplier-list"></div>
-    <div class="main-table" th:replace="mainPage/adminTables/supplyList :: supply-list"></div>
-    <div class="main-table" th:replace="mainPage/adminTables/courierList :: courier-list"></div>
-    <div class="main-table" th:replace="mainPage/adminTables/applicationList :: application-list"></div>
+<div  class="main-table" th:fragment="category-list" xmlns:th="http://www.w3.org/1999/xhtml">
 
 
 
@@ -71,56 +53,26 @@
 
 <!--    </div>-->
 
-<!--    <table class="table">-->
-<!--        <thead>-->
-<!--        <tr>-->
-<!--            <th style="width: 5%">id</th>-->
-<!--            <th style="width: 10%">Фамилия</th>-->
-<!--            <th style="width: 10%">Имя</th>-->
-<!--            <th style="width: 10%">Отчество</th>-->
-<!--            <th style="width: 10%">Дата рождения</th>-->
-<!--            <th style="width: 10%">Пол</th>-->
-<!--            <th style="width: 10%">Должность</th>-->
-<!--            <th style="width: 10%">Номер телефона</th>-->
-<!--        </tr>-->
-<!--        </thead>-->
-<!--        <tbody>-->
-<!--        <tr th:each="i : ${#numbers.sequence(unionMembersTable.size() - 1, 0, -1)}"-->
-<!--            th:with="unionMember=${unionMembersTable[i]}"-->
-<!--            class="table-row">-->
+    <table th:if="${tableMode.mode==3}" class="table">
+        <thead>
+        <tr>
+            <th style="width: 10%">id</th>
+            <th style="width: 90%">Название</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="i : ${#numbers.sequence(categories.size() - 1, 0, -1)}"
+            th:with="category=${categories[i]}"
+            class="table-row">
 
-<!--            <td style="text-align: center">-->
-<!--                <div class="table-cell" th:text="${unionMember.unionMemberId}">-->
-<!--                </div>-->
-<!--            </td>-->
-<!--            <td style="text-align: center">-->
-<!--                <div class="table-cell" th:text="${unionMember.surname}">-->
-<!--                </div>-->
-<!--            </td>-->
-<!--            <td style="text-align: center">-->
-<!--                <div class="table-cell" th:text="${unionMember.name}">-->
-<!--                </div>-->
-<!--            </td>-->
-<!--            <td style="text-align: center">-->
-<!--                <div class="table-cell" th:text="${unionMember.patronymic}">-->
-<!--                </div>-->
-<!--            </td>-->
-<!--            <td style="text-align: center">-->
-<!--                <div class="table-cell" th:text="${unionMember.getDateInNormalFormat()}">-->
-<!--                </div>-->
-<!--            </td>-->
-<!--            <td style="text-align: center">-->
-<!--                <div class="table-cell" th:text="${unionMember.gender.genderTitle}">-->
-<!--                </div>-->
-<!--            </td>-->
-<!--            <td style="text-align: center">-->
-<!--                <div class="table-cell" th:text="${unionMember.position.positionTitle}">-->
-<!--                </div>-->
-<!--            </td>-->
-<!--            <td style="text-align: center">-->
-<!--                <div class="table-cell" th:text="${unionMember.phoneNumbers[0].phoneNumber}">-->
-<!--                </div>-->
-<!--            </td>-->
+            <td style="text-align: center">
+                <div class="table-cell" th:text="${category.categoryId}">
+                </div>
+            </td>
+            <td style="text-align: center">
+                <div class="table-cell" th:text="${category.title}">
+                </div>
+            </td>
 
 <!--            <td style="text-align: center" th:if="${checkUser.isAdmin()}">-->
 <!--                <div class="table-cell">-->
@@ -203,7 +155,7 @@
 <!--            </td>-->
 
 
-<!--        </tr>-->
-<!--        </tbody>-->
-<!--    </table>-->
+        </tr>
+        </tbody>
+    </table>
 </div>

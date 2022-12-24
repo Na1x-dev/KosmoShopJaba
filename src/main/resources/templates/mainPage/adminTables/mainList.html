@@ -1,14 +1,24 @@
 <div class="main-table" th:fragment="list" xmlns:th="http://www.w3.org/1999/xhtml">
 
     <div class="table-menu">
-        <a>Смена</a>
-        <a>Товар</a>
-        <a>Категория</a>
-        <a>Поставщик</a>
-        <a>Поставка</a>
-        <a>Курьер</a>
-        <a>Заявки</a>
+        <a th:href="@{/mainPage/index/shiftList}">Смена</a>
+        <a th:href="@{/mainPage/index/productList}">Товар</a>
+        <a th:href="@{/mainPage/index/categoryList}">Категория</a>
+        <a th:href="@{/mainPage/index/supplierList}">Поставщик</a>
+        <a th:href="@{/mainPage/index/supplyList}">Поставка</a>
+        <a th:href="@{/mainPage/index/courierList}">Курьер</a>
+        <a th:href="@{/mainPage/index/applicationList}">Заявки</a>
     </div>
+
+    <div class="main-table" th:replace="mainPage/adminTables/shiftList :: shift-list"></div>
+    <div class="main-table" th:replace="mainPage/adminTables/productList :: product-list"></div>
+    <div class="main-table" th:replace="mainPage/adminTables/categoryList :: category-list"></div>
+    <div class="main-table" th:replace="mainPage/adminTables/supplierList :: supplier-list"></div>
+    <div class="main-table" th:replace="mainPage/adminTables/supplyList :: supply-list"></div>
+    <div class="main-table" th:replace="mainPage/adminTables/courierList :: courier-list"></div>
+    <div class="main-table" th:replace="mainPage/adminTables/applicationList :: application-list"></div>
+
+
 
 <!--    <div class="to-something-new-button">-->
 <!--        <dialog id="add-dialog" class="add-dialog dialog">-->

@@ -1,41 +1,59 @@
 <div class="main-table" th:fragment="list" xmlns:th="http://www.w3.org/1999/xhtml">
     <!--    <a class="to-new-user-button to-something-new-button" href="../newUserPage/index.html"-->
     <!--       th:href="@{../../newUserPage/index}">Новый сотрудник</a>-->
+    <table class="table">
+        <thead>
+        <tr>
+            <th style="width: 5%">id</th>
+            <th style="width: 15%">Имя пользователя</th>
+            <th style="width: 20%">Фамилия</th>
+            <th style="width: 20%">Имя</th>
+            <th style="width: 20%">Отчество</th>
+            <th style="width: 20%">Должность</th>
+            <th colspan="2">
+                <dialog id="add-dialog" class="add-dialog dialog">
+                    <form th:fragment="new-user-form" class="new-user-container"
+                          th:action="@{/userPage/index/add}" method="post">
+                        <div class="some-text" th:text="'Новый пользователь'">
+                        </div>
+                        <div class="new-user-inputs new-inputs">
+                            <input type="text" class="username-input new-user-input" placeholder="Имя пользователя"
+                                   autofocus required="required" th:field="${newUser.username}"/>
+                            <input type="text" class="password-input new-user-input" placeholder="Пароль"
+                                   autofocus required="required" th:field="${newUser.password}"/>
+                            <input type="text" class="user-input" placeholder="Фамилия"
+                                   autofocus="true" required="required" th:name="surname"/>
+                            <input type="text" class="user-input" placeholder="Имя"
+                                   autofocus="true" required="required" th:name="name"/>
+                            <input type="text" class="user-input" placeholder="Отчество"
+                                   autofocus="true" required="required" th:name="patronymic"/>
+<!--                            <select required th:name="position.positionId">-->
+<!--                                <option disabled value="" selected>Выберите должность</option>-->
+<!--                                <option th:each="position : ${positions}"-->
+<!--                                        th:utext="${position.title}" ></option>-->
+<!--                            </select>-->
 
-    <div class="to-something-new-button">
-        <dialog id="add-dialog" class="add-dialog dialog">
-            <form th:fragment="new-user-form" class="new-user-container"
-                  th:action="@{/userPage/index/add}" method="post">
-                <div class="some-text" th:text="'Новый пользователь'">
-                </div>
-                <div class="new-user-inputs new-inputs">
-                    <input type="text" class="username-input new-user-input" placeholder="Имя пользователя"
-                           autofocus required="required" th:field="${newUser.username}"/>
-                    <input type="text" class="password-input new-user-input" placeholder="Пароль"
-                           autofocus required="required" th:field="${newUser.password}"/>
-                </div>
-                <div class="bottom-new-user-buttons">
-                    <button type="submit" class="confirm-add-new-user-button dialog-button">Добавить</button>
-                    <button type="button" class="close-add-dialog dialog-button">Отмена</button>
-                </div>
-            </form>
-        </dialog>
-        <a class="new-user-add-button open-add-dialog open-dialog" th:onclick="
+                            <select required name="position.positionId">
+                                <option disabled value="" selected>Выберите должность</option>
+                                <option th:each="position : ${positions}" th:value="${position.positionId}" th:utext="${position.title}"></option>
+                            </select>
+
+                        </div>
+                        <div class="bottom-new-user-buttons">
+                            <button type="submit" class="confirm-add-new-user-button dialog-button">Добавить</button>
+                            <button type="button" class="close-add-dialog dialog-button">Отмена</button>
+                        </div>
+                    </form>
+                </dialog>
+                <a class="new-user-add-button open-add-dialog open-dialog" th:onclick="
                             let divParent = this.closest('div');
                             let dialogCloseButton = divParent.querySelector('.new-user-container').querySelector('.bottom-new-user-buttons').querySelector('.close-add-dialog');
                             let addDialog = divParent.querySelector('#add-dialog');
                             addDialog.show();
                             dialogCloseButton.onclick = function(){
-                            addDialog.close();}">Добавить пользователя
-        </a>
-
-    </div>
-
-    <table class="table">
-        <thead>
-        <tr>
-            <th style="width: 10%">id</th>
-            <th style="width: 65%">Имя пользователя</th>
+                            addDialog.close();}">Добавить
+                </a>
+            </th>
         </tr>
         </thead>
         <tbody>
@@ -48,7 +66,22 @@
                 <div class="user-username table-cell" th:text="${user.username}">
                 </div>
             </td>
-
+            <td style="text-align: center">
+                <div class="user-username table-cell" th:text="${user.surname}">
+                </div>
+            </td>
+            <td style="text-align: center">
+                <div class="user-username table-cell" th:text="${user.name}">
+                </div>
+            </td>
+            <td style="text-align: center">
+                <div class="user-username table-cell" th:text="${user.patronymic}">
+                </div>
+            </td>
+            <td style="text-align: center">
+                <div class="user-username table-cell" th:text="${user.position.title}">
+                </div>
+            </td>
             <td style="text-align: center">
                 <dialog id="update-dialog" class="update-dialog dialog">
                     <form th:fragment="user-form" class="user-container"
@@ -57,9 +90,21 @@
                             Изменение
                         </div>
                         <div class="new-inputs">
-                            <input type="text" name="username" class="user-input" placeholder="Имя пользователя"
+                            <input type="text" class="user-input" placeholder="Имя пользователя"
                                    autofocus="true" required="required" th:value="${user.username}" th:name="username"/>
-                            <input type="text" name="password" class="user-input" placeholder="Пароль"
+                            <input type="text" class="user-input" placeholder="Фамилия"
+                                   autofocus="true" required="required" th:value="${user.surname}" th:name="surname"/>
+                            <input type="text" class="user-input" placeholder="Имя"
+                                   autofocus="true" required="required" th:value="${user.name}" th:name="name"/>
+                            <input type="text" class="user-input" placeholder="Отчество"
+                                   autofocus="true" required="required" th:value="${user.patronymic}" th:name="patronymic"/>
+                            <select required th:name="position.positionId">
+                                <option disabled value="">Выберите должность</option>
+                                <option th:each="position : ${positions}" th:value="${position.positionId}"
+                                        th:utext="${position.title}"></option>
+                            </select>
+
+                            <input type="text" class="user-input" placeholder="Пароль"
                                    autofocus="true" required="required" th:name="password"/>
                         </div>
                         <div class="bottom-user-buttons">

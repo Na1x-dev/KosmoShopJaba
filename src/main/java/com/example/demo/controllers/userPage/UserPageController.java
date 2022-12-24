@@ -4,6 +4,7 @@ import com.example.demo.controllers.user.UserValidator;
 
 import com.example.demo.models.User;
 import com.example.demo.security.SecurityService;
+import com.example.demo.services.position.PositionService;
 import com.example.demo.services.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,6 +23,8 @@ public class UserPageController {
     UserValidator userValidator;
     @Autowired
     SecurityService securityService;
+    @Autowired
+    PositionService positionService;
 
     @GetMapping({"/userPage/index"})
     public String userPage(Model model, Principal user) {
@@ -29,6 +32,7 @@ public class UserPageController {
         model.addAttribute("users", userService.readAll());
         model.addAttribute("newUser", new User());
         model.addAttribute("updateUser", new User());
+        model.addAttribute("positions", positionService.readAll());
         return "userPage/index";
     }
 
@@ -40,6 +44,8 @@ public class UserPageController {
         if (bindingResult.hasErrors()) {
             return "newUserPage/index";
         }
+//        newUser.setPosition(positionService.readById(newUser.getPosition().getPositionId()));
+        System.out.println(newUser);
         userService.create(newUser);
         return "redirect:/userPage/index";
     }
@@ -89,7 +95,6 @@ public class UserPageController {
 //        model.addAttribute("updateUser", new User());
         return "redirect:/userPage/index";
     }
-
 
 
 }
