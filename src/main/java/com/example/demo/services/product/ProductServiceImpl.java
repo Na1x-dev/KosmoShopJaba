@@ -24,6 +24,23 @@ public class ProductServiceImpl implements ProductService {
     }
 
 
+    @Override
+    public boolean delete(Long id) {
+        if (productJpaRepository.existsById(id)) {
+            productJpaRepository.deleteById(id);
+            return true;
+        }
+        return false;
+    }
 
+    @Override
+    public boolean update(Long id, Product product) {
+        if (productJpaRepository.existsById(id)) {
+            product.setProductId(id);
+            productJpaRepository.save(product);
+            return true;
+        }
+        return false;
+    }
 
 }

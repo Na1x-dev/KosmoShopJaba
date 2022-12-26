@@ -44,8 +44,6 @@ public class UserPageController {
         if (bindingResult.hasErrors()) {
             return "newUserPage/index";
         }
-//        newUser.setPosition(positionService.readById(newUser.getPosition().getPositionId()));
-        System.out.println(newUser);
         userService.create(newUser);
         return "redirect:/userPage/index";
     }

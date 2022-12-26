@@ -46,7 +46,6 @@ public class Product {
 
     @ManyToOne
     @JoinColumn(name = "supply_id", nullable = false, referencedColumnName = "supply_id")
-    @NonNull
     Supply supply;
 
     @ManyToOne

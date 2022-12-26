@@ -23,6 +23,24 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryJpaRepository.findAll();
     }
 
+    @Override
+    public boolean delete(Long id) {
+        if (categoryJpaRepository.existsById(id)) {
+            categoryJpaRepository.deleteById(id);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean update(Long id, Category category) {
+        if (categoryJpaRepository.existsById(id)) {
+            category.setCategoryId(id);
+            categoryJpaRepository.save(category);
+            return true;
+        }
+        return false;
+    }
 
 
 }

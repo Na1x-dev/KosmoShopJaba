@@ -1,4 +1,4 @@
-<div class="main-table" th:fragment="list" xmlns:th="http://www.w3.org/1999/xhtml">
+<div class="main-table" th:if="${checkUser.isAdmin()}" th:fragment="list" xmlns:th="http://www.w3.org/1999/xhtml">
 
     <div class="table-menu">
         <a th:href="@{/mainPage/index/shiftList}">Смена</a>

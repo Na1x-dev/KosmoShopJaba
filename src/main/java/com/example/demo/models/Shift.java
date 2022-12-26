@@ -29,7 +29,6 @@ public class Shift {
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "close_date")
-    @NonNull
     Date closeDate;
 
     @ManyToOne
@@ -37,8 +36,13 @@ public class Shift {
     @NonNull
     User user;
 
-    public Shift() {
+    public Shift(User user) {
+        this.user = user;
+        openDate = new Date();
+        closeDate = new Date(0);
     }
+
+    public Shift(){}
 
     public String formatOpenDateForChange() {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");//yyyy-MM-ddThh:mm
@@ -58,5 +62,9 @@ public class Shift {
     public String getCloseDateInNormalFormat() {
         SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
         return format.format(closeDate);
+    }
+
+    public void closeShift() {
+        this.closeDate = new Date();
     }
 }

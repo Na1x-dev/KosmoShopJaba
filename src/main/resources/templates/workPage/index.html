@@ -15,22 +15,15 @@
           th:href="@{/css/general.css}">
     <link rel="stylesheet" href="../../static/css/dialog.css" th:rel="stylesheet"
           th:href="@{/css/dialog.css}">
-    <link rel="stylesheet" href="../../static/css/adminTables.css" th:rel="stylesheet"
-          th:href="@{/css/adminTables.css}">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700" rel="stylesheet"
           th:href="@{https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700}"
           th:rel="stylesheet">
 
 </head>
 <body>
-
-<header th:replace="generalElements/headerForUsers :: header"></header>
-<header th:replace="generalElements/header :: header"></header>
+<header th:replace="generalElements/workHeader :: header"></header>
 <main id="main">
-    <div class="main-table"   th:replace="mainPage/adminTables/mainList :: list">
-    </div>
-
-    <div class="main-table" th:unless="${checkUser.isAdmin()}">
+    <div class="main-table"   th:replace="workPage/mainList :: list">
     </div>
 </main>
 
@@ -39,8 +32,6 @@
 
 <script type="text/javascript">
 
-    /* функция добавления ведущих нулей */
-    /* (если число меньше десяти, перед числом добавляем ноль) */
     function zero_first_format(value)
     {
         if (value < 10)

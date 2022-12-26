@@ -10,5 +10,7 @@ public interface ProductService {
     List<Product> readAll();
 
 
+    boolean delete(Long id);
 
+    boolean update(Long id, Product product);
 }

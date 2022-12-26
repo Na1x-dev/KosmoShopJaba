@@ -56,9 +56,45 @@
     <table th:if="${tableMode.mode==5}" class="table">
         <thead>
         <tr>
-            <th style="width: 10%">id</th>
-            <th style="width: 30%">Поставщик</th>
-            <th style="width: 30%">Дата поставки</th>
+            <th style="width: 5%">id</th>
+            <th style="width: 40%">Поставщик</th>
+            <th style="width: 40%">Дата поставки</th>
+            <th colspan="2">
+                <dialog id="add-dialog" class="add-dialog dialog">
+                    <form th:fragment="new-supply-form" class="new-supply-container"
+                          th:action="@{/mainPage/index/supplyList/add}" method="post">
+                        <div class="some-text" th:text="'Новый поставщик'">
+                        </div>
+                        <div class="new-supply-inputs new-inputs">
+                            <select required th:name="supplier.supplierId">
+                                <option disabled value="" selected>Выберите поставщика</option>
+                                <option th:each="supplier : ${suppliers}" th:value="${supplier.supplierId}"
+                                        th:utext="${supplier.title}"></option>
+                            </select>
+
+                            <input type="date" class="new-supply-input"
+                                   placeholder="Дата поставки"
+                                   autofocus="true" required="required"
+                                   th:name="supplyDate"/>
+
+                        </div>
+                        <div class="bottom-new-supply-buttons">
+                            <button type="submit" class="confirm-add-new-supply-button dialog-button">Добавить
+                            </button>
+                            <button type="button" class="close-add-dialog dialog-button">Отмена</button>
+                        </div>
+                    </form>
+
+                </dialog>
+                <a class="new-supply-add-button open-add-dialog open-dialog" th:onclick="
+                                        let divParent = this.closest('div');
+                                        let dialogCloseButton = divParent.querySelector('.new-supply-container').querySelector('.bottom-new-supply-buttons').querySelector('.close-add-dialog');
+                                        let addDialog = divParent.querySelector('#add-dialog');
+                                        addDialog.show();
+                                        dialogCloseButton.onclick = function(){
+                                        addDialog.close();}">Добавить
+                </a>
+            </th>
         </tr>
         </thead>
         <tbody>
@@ -78,6 +114,69 @@
                 <div class="table-cell" th:text="${supply.supplyDate}">
                 </div>
             </td>
+
+
+            <td style="text-align: center" th:if="${checkUser.isAdmin()}">
+                <div class="table-cell">
+                    <dialog id="update-dialog" class="update-dialog dialog">
+                        <form th:fragment="update-supply-form" class="update-supply-container"
+                              th:action="@{'/mainPage/index/supplyList/update/'+${supply.supplyId}}"
+                              method="post">
+                            <div class="some-text" th:text="'Изменение поставки'">
+                            </div>
+                            <div class="update-supply-inputs update-inputs">
+                                <select required th:name="supplier.supplierId">
+                                    <option disabled value="" selected>Выберите поставщика</option>
+                                    <option th:each="supplier : ${suppliers}" th:value="${supplier.supplierId}"
+                                            th:utext="${supplier.title}" th:selected="(${supply.supplier.supplierId}==${supplier.supplierId})"></option>
+                                </select>
+
+                                <input type="date" class="update-supply-input"
+                                       placeholder="Дата поставки"
+                                       autofocus="true" required="required"
+                                       th:name="supplyDate" th:value="${supply.supplyDate}"/>
+                            </div>
+                            <div class="bottom-update-supply-buttons">
+                                <button type="submit" class="confirm-update-supply-button dialog-button">Изменить
+                                </button>
+                                <button type="button" class="close-update-dialog dialog-button">Отмена</button>
+                            </div>
+                        </form>
+
+                    </dialog>
+                    <a class="supply-update-button open-update-dialog open-dialog" th:onclick="
+                                let tdParent = this.closest('td');
+                                let dialogCloseButton = tdParent.querySelector('.update-supply-container').querySelector('.bottom-update-supply-buttons').querySelector('.close-update-dialog');
+                                let updateDialog = tdParent.querySelector('#update-dialog');
+                                updateDialog.show();
+                                dialogCloseButton.onclick = function(){
+                                updateDialog.close();}">Изменить
+                    </a>
+                </div>
+            </td>
+
+            <td style="text-align: center" th:if="${checkUser.isAdmin()}">
+                <div class="table-cell">
+                    <dialog id="delete-dialog" class="delete-dialog dialog">
+                        <div class="some-text"
+                             th:text="'Вы действительно хотите удалить поставку c id ' + ${supply.supplyId} + '?'">
+                            Удаление
+                        </div>
+                        <a class="dialog-button" id="confirm-delete-supply-button"
+                           th:href="@{'/mainPage/index/supplyList/delete/'+${supply.supplyId}}">Да</a>
+                        <button id="close-delete-dialog-button" class="dialog-button" autofocus>Нет</button>
+                    </dialog>
+                    <!--                th:href="@{'/userPage/index/delete/id='+${user.userId}}"-->
+                    <a class="supply-delete-button open-delete-dialog open-dialog" th:onclick="
+                                    let tdParent = this.closest('td');
+                                    let deleteDialog = tdParent.querySelector('#delete-dialog');
+                                    deleteDialog.show();
+                                    tdParent.querySelector('#close-delete-dialog-button').onclick = function(){
+                                    deleteDialog.close();}">Удалить
+                    </a>
+                </div>
+            </td>
+
 
 <!--            <td style="text-align: center" th:if="${checkUser.isAdmin()}">-->
 <!--                <div class="table-cell">-->

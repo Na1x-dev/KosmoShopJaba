@@ -33,8 +33,7 @@
         name varchar(255)
     );
 
-    create table if not exists users
-    (
+    create table if not exists users(
         id bigint AUTO_INCREMENT primary key,
         password varchar(255),
         username varchar(255),

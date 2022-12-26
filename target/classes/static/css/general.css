@@ -58,12 +58,17 @@ select, input{
 .dialog-button{
     font-size: 15px;
     border: 0;
-    background-color: #E9F6FB;
-    color: #222222;
+    background-color: #37474F;
+    color: #dddddd;
     padding: 10px;
 }
 
-.dialog-button:hover, .open-dialog:hover{
+.dialog-button:hover{
+    background-color: #48585F;
+    cursor: pointer;
+}
+
+.open-dialog:hover{
     background-color: #C8E5EA;
     cursor: pointer;
 }

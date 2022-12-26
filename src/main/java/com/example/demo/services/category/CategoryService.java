@@ -10,4 +10,7 @@ public interface CategoryService {
     List<Category> readAll();
 
 
+    boolean delete(Long id);
+
+    boolean update(Long id, Category category);
 }
