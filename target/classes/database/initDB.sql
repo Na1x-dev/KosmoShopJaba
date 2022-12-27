@@ -134,19 +134,9 @@
     organization_phone varchar (20) Not Null
   );
 
-  Create table if not exists orders(
-    order_id bigint AUTO_INCREMENT primary key,
-    order_date date Not Null,
-    product_id bigint not null,
-    constraint orders_products
-    FOREIGN KEY (product_id) REFERENCES products (product_id)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE
-  );
 
   Create table if not exists deliveries(
     delivery_id bigint AUTO_INCREMENT primary key,
-    order_id bigint not null,
     courier_id bigint not null,
     city varchar(50) Not Null,
     street varchar(50) Not Null,
@@ -154,12 +144,24 @@
     client_name varchar(70) Not Null,
     client_phone varchar (20) Not Null,
     delivery_date date Not Null,
-    constraint deliveries_orders
-    FOREIGN KEY (order_id) REFERENCES orders (order_id)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
     constraint deliveries_couriers
     FOREIGN KEY (courier_id) REFERENCES couriers (courier_id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+  );
+
+
+  Create table if not exists orders(
+    order_id bigint AUTO_INCREMENT primary key,
+    order_date date Not Null,
+    product_id bigint not null,
+    delivery_id bigint not null,
+    constraint orders_deliveries
+        FOREIGN KEY (delivery_id) REFERENCES deliveries (delivery_id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE,
+    constraint orders_products
+    FOREIGN KEY (product_id) REFERENCES products (product_id)
     ON DELETE CASCADE
     ON UPDATE CASCADE
   );
