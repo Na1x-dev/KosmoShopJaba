@@ -26,6 +26,11 @@ public class Order {
     Date orderDate;
 
     @ManyToOne
+    @JoinColumn(name = "delivery_id", nullable = false, referencedColumnName = "delivery_id")
+    @NonNull
+    Delivery delivery;
+
+    @ManyToOne
     @JoinColumn(name = "product_id", nullable = false, referencedColumnName = "product_id")
     @NonNull
     Product product;

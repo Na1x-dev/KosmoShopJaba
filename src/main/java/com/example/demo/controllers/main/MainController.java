@@ -283,12 +283,21 @@ public class MainController {
 
     Shift shift;
 
+    @GetMapping({"/workPage/index/openShift"})
+    public String workPageOpenShift(Model model, Principal user) {
+        model.addAttribute("checkUser", userService.findByUsername(user.getName()));
+        shift = new Shift(userService.findByUsername(user.getName()));
+        tableMode.setMode(1);
+        shift = shiftService.create(shift);
+        return "redirect:/workPage/index";
+    }
+
     @GetMapping({"/workPage/index"})
     public String workPage(Model model, Principal user) {
         model.addAttribute("checkUser", userService.findByUsername(user.getName()));
         model.addAttribute("tableMode", tableMode);
-        shift = new Shift(userService.findByUsername(user.getName()));
-        shift = shiftService.create(shift);
+        model.addAttribute("products", productService.readAll());
+        model.addAttribute("orders", orderService.readAll());
         return "workPage/index";
     }
 

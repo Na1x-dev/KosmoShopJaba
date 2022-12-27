@@ -48,10 +48,7 @@ public class Delivery {
     @NonNull
     Date deliveryDate;
 
-    @ManyToOne
-    @JoinColumn(name = "order_id", nullable = false, referencedColumnName = "order_id")
-    @NonNull
-    Order order;
+
 
     @ManyToOne
     @JoinColumn(name = "courier_id", nullable = false, referencedColumnName = "courier_id")
