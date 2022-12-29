@@ -38,6 +38,11 @@ public class Order {
     public Order() {
     }
 
+        public String getDateInNormalFormat() {
+        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+        return format.format(orderDate);
+    }
+
 //    public String getIdAndName() {
 //        if (!surname.equals("") || !name.equals("") || !patronymic.equals(""))
 //            return unionMemberId + ". " + surname + " " + name.charAt(0) + "." + patronymic.charAt(0) + ".";

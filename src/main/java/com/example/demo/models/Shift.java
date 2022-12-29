@@ -50,7 +50,7 @@ public class Shift {
     }
 
     public String getOpenDateInNormalFormat() {
-        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+        SimpleDateFormat format = new SimpleDateFormat("hh:mm dd.MM.yyyy");
         return format.format(openDate);
     }
 
@@ -60,7 +60,7 @@ public class Shift {
     }
 
     public String getCloseDateInNormalFormat() {
-        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+        SimpleDateFormat format = new SimpleDateFormat("hh:mm dd.MM.yyyy");
         return format.format(closeDate);
     }
 

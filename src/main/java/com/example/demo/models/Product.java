@@ -5,6 +5,7 @@ import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity
@@ -54,5 +55,14 @@ public class Product {
     Category category;
 
     public Product() {
+    }
+
+    public String getDateInNormalFormat() {
+        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+        return format.format(bestBeforeDate);
+    }
+    public String formatDateForChange() {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        return format.format(bestBeforeDate);
     }
 }

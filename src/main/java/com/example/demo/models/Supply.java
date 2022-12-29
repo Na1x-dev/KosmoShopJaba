@@ -40,8 +40,8 @@ public class Supply {
 //        return format.format(meetingMinuteDate);
 //    }
 //
-//    public String getDateInNormalFormat() {
-//        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
-//        return format.format(getMeetingMinuteDate());
-//    }
+    public String getDateInNormalFormat() {
+        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+        return format.format(supplyDate);
+    }
 }

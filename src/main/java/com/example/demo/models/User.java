@@ -96,4 +96,8 @@ public class User {
         roles.add(role);
     }
 
+    public String getFIO(){
+        return surname + " " + name.charAt(0) + "." + patronymic.charAt(0) + ".";
+    }
+
 }

@@ -55,13 +55,26 @@ public class Application {
     public Application() {
     }
 
-//    public String formatDateForChange() {
-//        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-//        return format.format(registerDate);
-//    }
+
+
+    public String formatOpenDateForChange() {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        return format.format(openDate);
+    }
+
+    public String formatCloseDateForChange() {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        return format.format(closeDate);
+    }
 //
-//    public String getDateInNormalFormat() {
-//        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
-//        return format.format(registerDate);
-//    }
+    public String getOpenDateInNormalFormat() {
+        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+        return format.format(openDate);
+    }
+
+    public String getCloseDateInNormalFormat() {
+        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+        return format.format(closeDate);
+    }
+
 }
