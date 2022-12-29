@@ -55,8 +55,62 @@ public class MainController {
 
     TableMode tableMode = new TableMode();
 
+    AppMode appMode = new AppMode();
+
+
+    @GetMapping({"/mainPage/index/reports"})
+    public String reportPageMode(Model model, Principal user) {
+        appMode.setMode(2);
+        return "redirect:/mainPage/index";
+    }
+
+    @GetMapping({"/mainPage/index/adminTables"})
+    public String mainPageMode(Model model, Principal user) {
+        appMode.setMode(1);
+        return "redirect:/mainPage/index";
+    }
+
+    @GetMapping({"/mainPage/index/reports/supplyReport"})
+    public String mainPageSupplyReport(Model model, Principal user) {
+        model.addAttribute("checkUser", userService.findByUsername(user.getName()));
+        tableMode.setMode(8);
+        return "redirect:/mainPage/index";
+    }
+
+    @GetMapping({"/mainPage/index/reports/costReport"})
+    public String mainPageCostReport(Model model, Principal user) {
+        model.addAttribute("checkUser", userService.findByUsername(user.getName()));
+        tableMode.setMode(9);
+        return "redirect:/mainPage/index";
+    }
+    @GetMapping({"/mainPage/index/reports/closeApplicationReport"})
+    public String mainPageCloseApplicationReport(Model model, Principal user) {
+        model.addAttribute("checkUser", userService.findByUsername(user.getName()));
+        tableMode.setMode(10);
+        return "redirect:/mainPage/index";
+    }
+    @GetMapping({"/mainPage/index/reports/yearReport"})
+    public String mainPageYearReport(Model model, Principal user) {
+        model.addAttribute("checkUser", userService.findByUsername(user.getName()));
+        tableMode.setMode(11);
+        return "redirect:/mainPage/index";
+    }
+    @GetMapping({"/mainPage/index/reports/deliveryReport"})
+    public String mainPageDeliveryReport(Model model, Principal user) {
+        model.addAttribute("checkUser", userService.findByUsername(user.getName()));
+        tableMode.setMode(12);
+        return "redirect:/mainPage/index";
+    }
+    @GetMapping({"/mainPage/index/reports/processingReport"})
+    public String mainPageProcessingReport(Model model, Principal user) {
+        model.addAttribute("checkUser", userService.findByUsername(user.getName()));
+        tableMode.setMode(13);
+        return "redirect:/mainPage/index";
+    }
+
     @GetMapping({"/mainPage/index"})
     public String mainPage(Model model, Principal user) {
+        model.addAttribute("appMode", appMode);
         model.addAttribute("checkUser", userService.findByUsername(user.getName()));
         model.addAttribute("shifts", shiftService.readAll());
         model.addAttribute("applications", applicationService.readAll());
