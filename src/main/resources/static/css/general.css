@@ -74,7 +74,7 @@ select, input{
 }
 
 .some-text{
- white-space: pre-wrap;
+    white-space: pre-wrap;
     text-align: center;
     margin: 20px;
 }
@@ -89,6 +89,42 @@ select, input{
     flex-grow: 0;
 }
 
+
+
+.application-form{
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    margin-right: 20%;
+    margin-left: 20%;
+
+}
+
+.input-area{
+    border: 1px solid #222222;
+    padding: 10px;
+    font-size: 20px;
+
+}
+
+.app-elem{
+    margin-top: 20px;
+}
+
+.confirm-app{
+    margin: 0;
+    margin-top: 20px;
+    padding: 10px;
+    color: #ffffff;
+    border: 0;
+    background-color: #37474F;
+}
+
+.confirm-app:hover{
+    background-color: #48585F;
+    cursor: pointer;
+
+}
 
 
 

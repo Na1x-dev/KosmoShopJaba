@@ -19,5 +19,5 @@ public interface OrderService {
     boolean delete(Long id);
 
 
-
+    Order readById(Long orderId);
 }

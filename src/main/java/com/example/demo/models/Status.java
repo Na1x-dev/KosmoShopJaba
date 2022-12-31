@@ -21,8 +21,12 @@ public class Status {
 
     @Column(name = "title")
     @NonNull
-    String Title;
+    String title;
 
     public Status() {
+    }
+
+    public Status(String title) {
+    this.title = title;
     }
 }

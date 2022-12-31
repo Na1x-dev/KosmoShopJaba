@@ -13,4 +13,6 @@ public interface StatusService {
     boolean delete(Long id);
 
     boolean update(Long id, Status status);
+
+    Status readByTitle(String title);
 }

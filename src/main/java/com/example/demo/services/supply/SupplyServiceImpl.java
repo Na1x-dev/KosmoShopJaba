@@ -42,4 +42,9 @@ public class SupplyServiceImpl implements SupplyService {
         return false;
     }
 
+    @Override
+    public Supply readById(Long supplyId) {
+        return supplyJpaRepository.getBySupplyId(supplyId);
+    }
+
 }

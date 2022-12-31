@@ -11,7 +11,7 @@ import java.util.Date;
 @Entity
 @Getter
 @Setter
-@ToString
+
 @RequiredArgsConstructor
 @Table(name = "applications")
 @JsonIgnoreProperties("hibernateLazyInitializer")
@@ -43,8 +43,7 @@ public class Application {
     @NonNull
     User userOpen;
     @ManyToOne
-    @JoinColumn(name = "user_id_close", nullable = false, referencedColumnName = "id")
-    @NonNull
+    @JoinColumn(name = "user_id_close", referencedColumnName = "id")
     User userClose;
 
     @ManyToOne
@@ -53,9 +52,27 @@ public class Application {
     Status status;
 
     public Application() {
+        openDate = new Date();
+        closeDate = new Date();
+        description = "";
+        comment = "";
+        userOpen = new User();
+        status = new Status();
     }
 
-
+    @Override
+    public String toString() {
+        return "Application{" +
+                "applicationId=" + applicationId +
+                ", openDate=" + openDate +
+                ", closeDate=" + closeDate +
+                ", description='" + description + '\'' +
+                ", comment='" + comment + '\'' +
+                ", userOpen=" + userOpen +
+                ", userClose=" + userClose +
+                ", status=" + status +
+                '}';
+    }
 
     public String formatOpenDateForChange() {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -64,7 +81,7 @@ public class Application {
 
     public String formatCloseDateForChange() {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        return format.format(closeDate);
+        return format.format(new Date());
     }
 //
     public String getOpenDateInNormalFormat() {

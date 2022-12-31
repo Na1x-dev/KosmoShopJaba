@@ -10,4 +10,5 @@ import java.util.List;
 @Repository
 public interface OrderJpaRepository extends JpaRepository<Order, Long> {
 
+    Order getByOrderId(Long orderId);
 }

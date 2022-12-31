@@ -11,4 +11,5 @@ public interface DeliveryService {
     boolean delete(Long id);
 
 
+    Delivery readById(Long deliveryId);
 }

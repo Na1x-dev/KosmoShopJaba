@@ -26,8 +26,7 @@ public class Order {
     Date orderDate;
 
     @ManyToOne
-    @JoinColumn(name = "delivery_id", nullable = false, referencedColumnName = "delivery_id")
-    @NonNull
+    @JoinColumn(name = "delivery_id", referencedColumnName = "delivery_id")
     Delivery delivery;
 
     @ManyToOne
@@ -35,15 +34,35 @@ public class Order {
     @NonNull
     Product product;
 
+    @Column(name = "order_count")
+    @NonNull
+    Integer orderCount;
+
     public Order() {
+        orderDate = new Date();
     }
 
-        public String getDateInNormalFormat() {
+    public String getDateInNormalFormat() {
         SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
         return format.format(orderDate);
     }
 
-//    public String getIdAndName() {
+    public Double getFinalPrice() {
+        return orderCount * product.price;
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "orderId=" + orderId +
+                ", orderDate=" + orderDate +
+                ", delivery=" + delivery +
+                ", product=" + product +
+                ", orderCount=" + orderCount +
+                '}';
+    }
+
+    //    public String getIdAndName() {
 //        if (!surname.equals("") || !name.equals("") || !patronymic.equals(""))
 //            return unionMemberId + ". " + surname + " " + name.charAt(0) + "." + patronymic.charAt(0) + ".";
 //        return "";

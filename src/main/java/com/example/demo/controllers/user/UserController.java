@@ -5,6 +5,7 @@ import com.example.demo.security.SecurityService;
 
 
 import com.example.demo.services.category.CategoryService;
+import com.example.demo.services.status.StatusService;
 import com.example.demo.services.supply.SupplyService;
 import com.example.demo.services.product.ProductService;
 import com.example.demo.services.position.PositionService;
@@ -43,6 +44,9 @@ public class UserController {
     @Autowired
     private SupplyService supplyService;
 
+    @Autowired
+    private StatusService statusService;
+
     @GetMapping("/signUpPage/index")
     public String registration(Model model) {
         if (securityService.isAuthenticated()) {
@@ -69,6 +73,8 @@ public class UserController {
         autoCreateRoles();
         autoCreateEmptyPosition();
         autoRegisterAdmin();
+        autoCreateStatuses();
+        autoRegisterEmptyUser();
         if (securityService.isAuthenticated()) {
             return "redirect:/";
         }
@@ -99,6 +105,16 @@ public class UserController {
         }
     }
 
+    public void autoRegisterEmptyUser() {
+        if (userService.findByUsername("-") == null) {
+            Role role = roleService.readByRoleName("ROLE_ADMIN");
+            User empty = new User("-", "", role, "");
+            empty.setPosition(positionService.readByTitle(""));
+            userService.create(empty);
+            securityService.autoLogin(empty.getUsername(), empty.getPassword());
+        }
+    }
+
     public void autoCreateRoles() {
         if (roleService.readByRoleName("ROLE_ADMIN") == null) {
             Role role = new Role("ROLE_ADMIN");
@@ -121,9 +137,28 @@ public class UserController {
 //        }
 //    }
 //
+//public void autoCreateEmptyPosition() {
+//    if (positionService.readByTitle("") == null) {
+//        positionService.create(new Position());
+//    }
+//}
+//
     public void autoCreateEmptyPosition() {
         if (positionService.readByTitle("") == null) {
             positionService.create(new Position());
+        }
+    }
+
+
+    public void autoCreateStatuses() {
+        if (statusService.readByTitle("Запрос") == null) {
+            statusService.create(new Status("Запрос"));
+        }
+        if (statusService.readByTitle("Исполнение") == null) {
+            statusService.create(new Status("Исполнение"));
+        }
+        if (statusService.readByTitle("Выполнено") == null) {
+            statusService.create(new Status("Выполнено"));
         }
     }
 //

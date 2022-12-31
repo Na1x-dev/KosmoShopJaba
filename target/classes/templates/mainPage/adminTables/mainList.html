@@ -6,6 +6,7 @@
         <a th:href="@{/mainPage/index/categoryList}">Категория</a>
         <a th:href="@{/mainPage/index/supplierList}">Поставщик</a>
         <a th:href="@{/mainPage/index/supplyList}">Поставка</a>
+        <a th:href="@{/mainPage/index/productSupplyList}">Товары в поставке</a>
         <a th:href="@{/mainPage/index/courierList}">Курьер</a>
         <a th:href="@{/mainPage/index/applicationList}">Заявки</a>
     </div>
@@ -15,6 +16,7 @@
     <div class="main-table" th:replace="mainPage/adminTables/categoryList :: category-list"></div>
     <div class="main-table" th:replace="mainPage/adminTables/supplierList :: supplier-list"></div>
     <div class="main-table" th:replace="mainPage/adminTables/supplyList :: supply-list"></div>
+    <div class="main-table" th:replace="mainPage/adminTables/productSupplyList :: product-supply-list"></div>
     <div class="main-table" th:replace="mainPage/adminTables/courierList :: courier-list"></div>
     <div class="main-table" th:replace="mainPage/adminTables/applicationList :: application-list"></div>
 

@@ -43,4 +43,9 @@ public class StatusServiceImpl implements StatusService {
         return false;
     }
 
+    @Override
+    public Status readByTitle(String title) {
+        return statusJpaRepository.getByTitle(title);
+    }
+
 }

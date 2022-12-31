@@ -49,16 +49,22 @@ public class Delivery {
     Date deliveryDate;
 
 
-
     @ManyToOne
     @JoinColumn(name = "courier_id", nullable = false, referencedColumnName = "courier_id")
     @NonNull
     Courier courier;
 
+    @OneToMany(mappedBy = "delivery", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
+    @NonNull
+    List<Order> orders;
+
+
     public Delivery() {
+        orders = new ArrayList<>();
     }
 
-//    public String getIdAndName() {
+    //    public String getIdAndName() {
 //        if (!surname.equals("") || !name.equals("") || !patronymic.equals(""))
 //            return unionMemberId + ". " + surname + " " + name.charAt(0) + "." + patronymic.charAt(0) + ".";
 //        return "";
@@ -69,19 +75,26 @@ public class Delivery {
         return format.format(deliveryDate);
     }
 //
-//    public String formatDateForChange() {
-//        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-//        return format.format(birthdate);
-//    }
+    public String formatDateForChange() {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        return format.format(deliveryDate);
+    }
 //
-//    @Override
-//    public String toString() {
-//        return "UnionMember{" +
-//                "unionMemberId=" + unionMemberId +
-//                ", surname='" + surname + '\'' +
-//                ", name='" + name + '\'' +
-//                ", patronymic='" + patronymic + '\'' +
-//                ", phone='" + products.get(0).phoneNumber + '\'' +
-//                '}';
-//    }
+//
+
+
+    @Override
+    public String toString() {
+        return "Delivery{" +
+                "deliveryId=" + deliveryId +
+                ", city='" + city + '\'' +
+                ", street='" + street + '\'' +
+                ", house=" + house +
+                ", clientName='" + clientName + '\'' +
+                ", clientPhone='" + clientPhone + '\'' +
+                ", deliveryDate=" + deliveryDate +
+                ", courier=" + courier +
+                ", orders=" + orders +
+                '}';
+    }
 }

@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface DeliveryJpaRepository extends JpaRepository<Delivery, Long> {
 
+    Delivery getByDeliveryId(Long deliveryId);
 }

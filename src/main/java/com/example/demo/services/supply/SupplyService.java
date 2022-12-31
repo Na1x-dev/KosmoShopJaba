@@ -14,4 +14,5 @@ public interface SupplyService {
 
     boolean update(Long id, Supply supply);
 
+    Supply readById(Long supplyId);
 }

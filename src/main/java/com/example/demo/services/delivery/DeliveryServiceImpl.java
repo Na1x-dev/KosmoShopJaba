@@ -43,4 +43,9 @@ public class DeliveryServiceImpl implements DeliveryService {
         return false;
     }
 
+    @Override
+    public Delivery readById(Long deliveryId) {
+        return deliveryJpaRepository.getByDeliveryId(deliveryId);
+    }
+
 }

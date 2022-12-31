@@ -11,6 +11,7 @@ import javax.persistence.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
@@ -31,6 +32,13 @@ public class Supply {
     @JoinColumn(name = "supplier_id", nullable = false, referencedColumnName = "supplier_id")
     @NonNull
     Supplier supplier;
+
+    @ManyToMany
+    @JoinTable(
+            name = "supplies_products",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "supply_id"))
+    Set<Product> products;
 
     public Supply() {
     }

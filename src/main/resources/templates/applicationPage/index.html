@@ -3,46 +3,38 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <title>Library</title>
+<!--    <link rel="stylesheet" href="../../static/css/main.css" th:rel="stylesheet"-->
+<!--          th:href="@{/css/main.css}">-->
+    <link rel="stylesheet" href="../../static/css/table.css" th:rel="stylesheet"
+          th:href="@{/css/table.css}">
+    <link rel="stylesheet" href="../../static/css/header.css" th:rel="stylesheet"
+          th:href="@{/css/header.css}">
+    <link rel="stylesheet" href="../../static/css/general.css" th:rel="stylesheet"
+          th:href="@{/css/general.css}">
+    <link rel="stylesheet" href="../../static/css/dialog.css" th:rel="stylesheet"
+          th:href="@{/css/dialog.css}">
+    <link rel="stylesheet" href="../../static/css/adminTables.css" th:rel="stylesheet"
+          th:href="@{/css/adminTables.css}">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700" rel="stylesheet"
           th:href="@{https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700}"
           th:rel="stylesheet">
+
 </head>
+<body>
 
-<div class="container" th:fragment="container">
-    <form class="form-log-in" method="POST" th:action="@{/logInPage/index}">
-        <div class="form-heading">Вход <div id="current_date_time_block"></div></div>
+<header th:replace="generalElements/headerForUsers :: header"></header>
+<header th:replace="generalElements/header :: header"></header>
+<main id="main">
+    <div class="main-table"   th:replace="applicationPage/applicationForm :: form">
+    </div>
+</main>
 
-        <div class="form-group">
+<!--<footer th:replace="commonElements/footer :: footer">someFooter</footer>-->
+</body>
 
-            <input name="username" id="username-field" type="text" class="form-control" placeholder="Username"
-                   th:placeholder="'Имя пользователя'"
-                   autofocus="true" required="required"/>
-
-            <input name="password" id="password-field" type="password" class="form-control" placeholder="Password"
-                   th:placeholder="'Пароль'" required="required"/>
-
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-
-            <button id="log-in-button" class="btn btn-lg btn-primary btn-block" type="submit"
-                    th:text="'Войти'">Log In
-            </button>
-        </div>
-    </form>
-    <span class="has-error" th:text="${error}">Неправильный логин и(или) пароль</span>
-    <script>
-        let usernameField = document.getElementById('username-field');
-        let passwordField = document.getElementById('password-field');
-        let logInButton = document.getElementById('log-in-button');
-        usernameField.value += 'Na1x666';
-        passwordField.value += '11111111';
-        logInButton.click();
-        console.log(usernameField.value);
-        console.log(passwordField.value);
-    </script>
-
-    <script type="text/javascript">
+<script type="text/javascript">
 
     /* функция добавления ведущих нулей */
     /* (если число меньше десяти, перед числом добавляем ноль) */
@@ -71,15 +63,15 @@
 
     /* выводим текущую дату и время на сайт в блок с id "current_date_time_block" */
     document.getElementById('current_date_time_block').innerHTML = date_time();
-    </script>
+</script>
 
-    <script type="text/javascript">
+
+<script type="text/javascript">
     /* каждую секунду получаем текущую дату и время */
     /* и вставляем значение в блок с id "current_date_time_block2" */
     setInterval(function () {
         document.getElementById('current_date_time_block').innerHTML = date_time();
     }, 1000);
     </script>
-
-
-</div>
+<!--<script th:src="@{/js/main.js}"></script>-->
+</html>

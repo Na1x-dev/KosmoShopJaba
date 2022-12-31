@@ -43,4 +43,9 @@ public class ProductServiceImpl implements ProductService {
         return false;
     }
 
+    @Override
+    public Product readById(Long productId) {
+        return productJpaRepository.getByProductId(productId);
+    }
+
 }

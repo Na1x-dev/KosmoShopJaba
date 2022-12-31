@@ -81,11 +81,11 @@
                                         th:utext="${category.title}"></option>
                             </select>
 
-                            <select required th:name="supply.supplyId">
-                                <option disabled value="" selected>Выберите поставку</option>
-                                <option th:each="supply : ${supplies}" th:value="${supply.supplyId}"
-                                        th:utext="${supply.supplyId}"></option>
-                            </select>
+<!--                            <select required th:name="supply.supplyId">-->
+<!--                                <option disabled value="" selected>Выберите поставку</option>-->
+<!--                                <option th:each="supply : ${supplies}" th:value="${supply.supplyId}"-->
+<!--                                        th:utext="${supply.supplyId}"></option>-->
+<!--                            </select>-->
 
                             <input type="number" min="0" class="new-product-input"
                                    placeholder="Количество"
@@ -194,11 +194,11 @@
                                             th:selected="(${product.category.categoryId}==${category.categoryId})"></option>
                                 </select>
 
-                                <select required th:name="supply.supplyId">
-                                    <option disabled value="" selected>Выберите поставку</option>
-                                    <option th:each="supply : ${supplies}" th:value="${supply.supplyId}"
-                                            th:utext="${supply.supplyId}" th:selected="(${product.supply.supplyId}==${supply.supplyId})"></option>
-                                </select>
+<!--                                <select required th:name="supply.supplyId">-->
+<!--                                    <option disabled value="" selected>Выберите поставку</option>-->
+<!--                                    <option th:each="supply : ${supplies}" th:value="${supply.supplyId}"-->
+<!--                                            th:utext="${supply.supplyId}" th:selected="(${supplyProduct.supply.supplyId}==${supply.supplyId})"></option>-->
+<!--                                </select>-->
 
                                 <input type="number" min="0" class="update-product-input"
                                        placeholder="Количество"

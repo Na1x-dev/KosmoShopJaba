@@ -7,6 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -45,9 +46,10 @@ public class Product {
     @NonNull
     Double weight;
 
-    @ManyToOne
-    @JoinColumn(name = "supply_id", nullable = false, referencedColumnName = "supply_id")
-    Supply supply;
+    @ManyToMany(mappedBy = "products")
+    @NonNull
+    @ToString.Exclude
+    Set<Supply> supplies;
 
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false, referencedColumnName = "category_id")
@@ -64,5 +66,20 @@ public class Product {
     public String formatDateForChange() {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         return format.format(bestBeforeDate);
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "productId=" + productId +
+                ", title='" + title + '\'' +
+                ", productCount=" + productCount +
+                ", price=" + price +
+                ", batchNumber=" + batchNumber +
+                ", bestBeforeDate=" + bestBeforeDate +
+                ", weight=" + weight +
+
+                ", category=" + category +
+                '}';
     }
 }

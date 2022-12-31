@@ -41,4 +41,9 @@ public class OrderServiceImpl implements OrderService {
         }
         return false;
     }
+
+    @Override
+    public Order readById(Long orderId) {
+        return orderJpaRepository.getByOrderId(orderId);
+    }
 }

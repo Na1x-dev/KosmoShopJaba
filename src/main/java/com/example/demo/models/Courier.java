@@ -48,4 +48,8 @@ public class Courier {
 
     public Courier() {
     }
+
+    public String getFIO(){
+        return surname + " " + name.charAt(0) + "." + patronymic.charAt(0) + ".";
+    }
 }

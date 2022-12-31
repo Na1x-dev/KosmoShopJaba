@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface SupplyJpaRepository extends JpaRepository<Supply, Long> {
 
+    Supply getBySupplyId(Long supplyId);
 }

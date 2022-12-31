@@ -2,6 +2,7 @@ package com.example.demo.controllers.main;
 
 import com.example.demo.models.*;
 import com.example.demo.services.application.ApplicationService;
+import com.example.demo.services.delivery.DeliveryService;
 import com.example.demo.services.status.StatusService;
 import com.example.demo.services.country.CountryService;
 import com.example.demo.services.category.CategoryService;
@@ -14,6 +15,7 @@ import com.example.demo.services.courier.CourierService;
 import com.example.demo.services.order.OrderService;
 
 import com.example.demo.services.user.UserService;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -51,6 +53,9 @@ public class MainController {
     @Autowired
     PositionService positionService;
     @Autowired
+    DeliveryService deliveryService;
+
+    @Autowired
     CountryService countryService;
 
     TableMode tableMode = new TableMode();
@@ -83,24 +88,28 @@ public class MainController {
         tableMode.setMode(9);
         return "redirect:/mainPage/index";
     }
+
     @GetMapping({"/mainPage/index/reports/closeApplicationReport"})
     public String mainPageCloseApplicationReport(Model model, Principal user) {
         model.addAttribute("checkUser", userService.findByUsername(user.getName()));
         tableMode.setMode(10);
         return "redirect:/mainPage/index";
     }
+
     @GetMapping({"/mainPage/index/reports/yearReport"})
     public String mainPageYearReport(Model model, Principal user) {
         model.addAttribute("checkUser", userService.findByUsername(user.getName()));
         tableMode.setMode(11);
         return "redirect:/mainPage/index";
     }
+
     @GetMapping({"/mainPage/index/reports/deliveryReport"})
     public String mainPageDeliveryReport(Model model, Principal user) {
         model.addAttribute("checkUser", userService.findByUsername(user.getName()));
         tableMode.setMode(12);
         return "redirect:/mainPage/index";
     }
+
     @GetMapping({"/mainPage/index/reports/processingReport"})
     public String mainPageProcessingReport(Model model, Principal user) {
         model.addAttribute("checkUser", userService.findByUsername(user.getName()));
@@ -123,6 +132,8 @@ public class MainController {
         model.addAttribute("tableMode", tableMode);
         model.addAttribute("countries", countryService.readAll());
         model.addAttribute("statuses", statusService.readAll());
+        model.addAttribute("suppliesProducts", getSupplyProductList());
+        model.addAttribute("admins", getAdmins());
         return "mainPage/index";
     }
 
@@ -152,7 +163,7 @@ public class MainController {
     }
 
     @PostMapping("/mainPage/index/shiftList/add")
-    public String mainPageShiftAdd(Model model,  @ModelAttribute("shift") Shift shift, Principal user) {
+    public String mainPageShiftAdd(Model model, @ModelAttribute("shift") Shift shift, Principal user) {
         model.addAttribute("checkUser", userService.findByUsername(user.getName()));
 
         shift.setUser(userService.readById(shift.getUser().getUserId()));
@@ -184,7 +195,7 @@ public class MainController {
     }
 
     @PostMapping("/mainPage/index/productList/add")
-    public String mainPageProductAdd(Model model,  @ModelAttribute("product") Product product, Principal user) {
+    public String mainPageProductAdd(Model model, @ModelAttribute("product") Product product, Principal user) {
         model.addAttribute("checkUser", userService.findByUsername(user.getName()));
         productService.create(product);
         return "redirect:/mainPage/index";
@@ -212,7 +223,7 @@ public class MainController {
     }
 
     @PostMapping("/mainPage/index/categoryList/add")
-    public String mainPageCategoryAdd(Model model,  @ModelAttribute("category") Category category, Principal user) {
+    public String mainPageCategoryAdd(Model model, @ModelAttribute("category") Category category, Principal user) {
         model.addAttribute("checkUser", userService.findByUsername(user.getName()));
         categoryService.create(category);
         return "redirect:/mainPage/index";
@@ -240,7 +251,7 @@ public class MainController {
     }
 
     @PostMapping("/mainPage/index/supplierList/add")
-    public String mainPageSupplierAdd(Model model,  @ModelAttribute("supplier") Supplier supplier, Principal user) {
+    public String mainPageSupplierAdd(Model model, @ModelAttribute("supplier") Supplier supplier, Principal user) {
         model.addAttribute("checkUser", userService.findByUsername(user.getName()));
         supplierService.create(supplier);
         return "redirect:/mainPage/index";
@@ -269,7 +280,7 @@ public class MainController {
     }
 
     @PostMapping("/mainPage/index/supplyList/add")
-    public String mainPageSupplyAdd(Model model,  @ModelAttribute("supply") Supply supply, Principal user) {
+    public String mainPageSupplyAdd(Model model, @ModelAttribute("supply") Supply supply, Principal user) {
         model.addAttribute("checkUser", userService.findByUsername(user.getName()));
         supplyService.create(supply);
         return "redirect:/mainPage/index";
@@ -297,7 +308,7 @@ public class MainController {
     }
 
     @PostMapping("/mainPage/index/courierList/add")
-    public String mainPageCourierAdd(Model model,  @ModelAttribute("courier") Courier courier, Principal user) {
+    public String mainPageCourierAdd(Model model, @ModelAttribute("courier") Courier courier, Principal user) {
         model.addAttribute("checkUser", userService.findByUsername(user.getName()));
         courierService.create(courier);
         return "redirect:/mainPage/index";
@@ -314,6 +325,7 @@ public class MainController {
     @PostMapping("/mainPage/index/applicationList/update/{id}")
     public String mainPageApplicationUpdate(Model model, @ModelAttribute("application") Application application, Principal user, @PathVariable("id") Long applicationId) {
         model.addAttribute("checkUser", userService.findByUsername(user.getName()));
+        System.out.println(application);
         applicationService.update(applicationId, application);
         return "redirect:/mainPage/index";
     }
@@ -326,13 +338,11 @@ public class MainController {
     }
 
     @PostMapping("/mainPage/index/applicationList/add")
-    public String mainPageApplicationAdd(Model model,  @ModelAttribute("application") Application application, Principal user) {
+    public String mainPageApplicationAdd(Model model, @ModelAttribute("application") Application application, Principal user) {
         model.addAttribute("checkUser", userService.findByUsername(user.getName()));
         applicationService.create(application);
         return "redirect:/mainPage/index";
     }
-
-
 
 
     Shift shift;
@@ -352,7 +362,24 @@ public class MainController {
         model.addAttribute("tableMode", tableMode);
         model.addAttribute("products", productService.readAll());
         model.addAttribute("orders", orderService.readAll());
+        model.addAttribute("suppliesProducts", getSupplyProductList());
+        model.addAttribute("supplies", supplyService.readAll());
+        model.addAttribute("deliveryOrders", getDeliveryOrderList());
+        model.addAttribute("couriers", courierService.readAll());
+        model.addAttribute("nonDeliveredOrders", getNonDeliveredOrders());
+
         return "workPage/index";
+    }
+
+    public List<User> getAdmins(){
+        List<User> users = userService.readAll();
+        List<User> admins = new ArrayList<>();
+        for (User user : users){
+            if (user.isAdmin()){
+                admins.add(user);
+            }
+        }
+        return admins;
     }
 
     @GetMapping({"/workPage/index/order"})
@@ -382,6 +409,149 @@ public class MainController {
         shift.closeShift();
         shiftService.update(shift.getShiftId(), shift);
         return "redirect:/mainPage/index";
+    }
+
+    @PostMapping({"/workPage/index/delivery/add"})
+    public String workPageDeliveryAdd(Model model, @ModelAttribute("newDeliveryOrder") DeliveryOrder deliveryOrder, Principal user) {
+        model.addAttribute("checkUser", userService.findByUsername(user.getName()));
+        Delivery delivery = deliveryOrder.getDelivery();
+        Order order = orderService.readById(deliveryOrder.getOrder().getOrderId());
+        delivery.getOrders().add(order);
+        delivery = deliveryService.create(delivery);
+        order.setDelivery(delivery);
+        orderService.update(order.getOrderId(), order);
+        return "redirect:/workPage/index";
+    }
+
+    @PostMapping({"/workPage/index/delivery/add/{id}"})
+    public String workPageDeliveryAddById(Model model, @ModelAttribute("newDeliveryOrder") DeliveryOrder deliveryOrder, @PathVariable("id") Long deliveryId, Principal user) {
+        model.addAttribute("checkUser", userService.findByUsername(user.getName()));
+        Delivery delivery = deliveryService.readById(deliveryId);
+        Order order = orderService.readById(deliveryOrder.getOrder().getOrderId());
+        delivery.getOrders().add(order);
+        deliveryService.update(delivery.getDeliveryId(), delivery);
+        order.setDelivery(delivery);
+        orderService.update(order.getOrderId(), order);
+        return "redirect:/workPage/index";
+    }
+
+
+    public List<SupplyProduct> getSupplyProductList() {
+        List<Supply> supplies = supplyService.readAll();
+        List<SupplyProduct> supplyProducts = new ArrayList<>();
+        for (Supply supply : supplies) {
+            //          if (!unionMember.getName().equals("")) {
+            Set<Product> products = supply.getProducts();
+            for (Product product : products) {
+                supplyProducts.add(new SupplyProduct(supply, product));
+            }
+        }
+        //    }
+        return supplyProducts;
+    }
+
+    public List<Order> getNonDeliveredOrders(){
+        List<Order> orders = orderService.readAll();
+        List<Order> newOrders = new ArrayList<>();
+        for(Order order : orders){
+            if(order.getDelivery() == null){
+                newOrders.add(order);
+            }
+        }
+        return newOrders;
+    }
+
+    @GetMapping({"/applicationPage/index"})
+    public String applicationPage(Model model, Principal user) {
+        model.addAttribute("checkUser", userService.findByUsername(user.getName()));
+        model.addAttribute("application", new Application());
+
+        return "applicationPage/index";
+    }
+
+    @PostMapping("/applicationPage/index")
+    public String applicationPage(Model model, @ModelAttribute("application") Application application, Principal user) {
+        model.addAttribute("checkUser", userService.findByUsername(user.getName()));
+        application.setStatus(statusService.readByTitle("Запрос"));
+        application.setUserOpen(userService.findByUsername(user.getName()));
+        application.setUserClose(userService.findByUsername("-"));
+        applicationService.create(application);
+        return "redirect:/mainPage/index";
+    }
+
+
+
+    @GetMapping({"/mainPage/index/productSupplyList"})
+    public String productSupplyList(Model model, Principal user) {
+        model.addAttribute("checkUser", userService.findByUsername(user.getName()));
+        tableMode.setMode(14);
+        return "redirect:/mainPage/index";
+    }
+
+    @PostMapping("/mainPage/index/productSupplyList/add")
+    public String productSupplyListAdd(Model model, @ModelAttribute("newSupplyProduct") SupplyProduct supplyProduct, Principal user) {
+        model.addAttribute("checkUser", userService.findByUsername(user.getName()));
+        Supply supply = supplyService.readById(supplyProduct.getSupply().getSupplyId());
+        supply.getProducts().add(supplyProduct.getProduct());
+        supplyService.update(supply.getSupplyId(), supply);
+        return "redirect:/mainPage/index";
+    }
+
+    @GetMapping("/mainPage/index/productSupplyList/delete/{supplyId}/{productId}")
+    public String productSupplyListDelete(Model model, Principal user, @PathVariable("supplyId") Long supplyId, @PathVariable("productId") Long productId) {
+        model.addAttribute("checkUser", userService.findByUsername(user.getName()));
+        Supply supply = supplyService.readById(supplyId);
+        Product product = productService.readById(productId);
+        supply.getProducts().remove(product);
+        supplyService.update(supplyId, supply);
+        return "redirect:/mainPage/index";
+    }
+
+    @PostMapping("/workPage/index/productSupplyList/add")
+    public String productSupplyListAddWorkPage(Model model, @ModelAttribute("newSupplyProduct") SupplyProduct supplyProduct, Principal user) {
+        model.addAttribute("checkUser", userService.findByUsername(user.getName()));
+        Supply supply = supplyService.readById(supplyProduct.getSupply().getSupplyId());
+        supply.getProducts().add(supplyProduct.getProduct());
+        supplyService.update(supply.getSupplyId(), supply);
+        return "redirect:/workPage/index";
+    }
+
+    @PostMapping("/workPage/index/orderList/add")
+    public String orderListAddWorkPage(Model model, @ModelAttribute("newOrder") Order order, Principal user) {
+        model.addAttribute("checkUser", userService.findByUsername(user.getName()));
+        Product product = productService.readById(order.getProduct().getProductId());
+        product.setProductCount(product.getProductCount() - order.getOrderCount());
+        if (product.getProductCount() >= 0) {
+            productService.update(product.getProductId(),product);
+            orderService.create(order);
+        }
+        return "redirect:/workPage/index";
+    }
+
+    public List<SupplyProduct> getProductSupplyList() {
+        List<Product> products = productService.readAll();
+        List<SupplyProduct> supplyProducts = new ArrayList<>();
+        for (Product product : products) {
+            Set<Supply> supplies = product.getSupplies();
+            for (Supply supply : supplies) {
+                supplyProducts.add(new SupplyProduct(supply, product));
+            }
+        }
+        //    }
+        return supplyProducts;
+    }
+
+
+    public List<DeliveryOrder> getDeliveryOrderList() {
+        List<Delivery> deliveries = deliveryService.readAll();
+        List<DeliveryOrder> deliveryOrders = new ArrayList<>();
+        for (Delivery delivery : deliveries) {
+            List<Order> orders = delivery.getOrders();
+            for (Order order : orders) {
+                deliveryOrders.add(new DeliveryOrder(delivery, order));
+            }
+        }
+        return deliveryOrders;
     }
 
 //

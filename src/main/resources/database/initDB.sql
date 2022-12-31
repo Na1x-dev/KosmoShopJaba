@@ -105,7 +105,7 @@
 
   create table if not exists products(
     product_id bigint AUTO_INCREMENT primary key,
-    supply_id bigint not null,
+
     title varchar(250) Not Null,
     category_id bigint not null,
     product_count int not null,
@@ -113,15 +113,26 @@
     batch_number int not null,
     best_before_date date not null,
     weight double not null,
-    constraint product_supplies
-    FOREIGN KEY (supply_id) REFERENCES supplies (supply_id)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
     constraint products_categories
     FOREIGN KEY (category_id) REFERENCES categories (category_id)
     ON DELETE CASCADE
     ON UPDATE CASCADE
   );
+
+  CREATE TABLE IF NOT EXISTS supplies_products(
+    id bigint AUTO_INCREMENT primary key,
+    supply_id bigint NOT NULL,
+    product_id bigint NOT NULL,
+    CONSTRAINT supplies_products0
+      FOREIGN KEY (supply_id)
+      REFERENCES supplies (supply_id)
+      ON DELETE CASCADE
+      ON UPDATE CASCADE,
+    CONSTRAINT supplies_products1
+      FOREIGN KEY (product_id)
+      REFERENCES products (product_id)
+      ON DELETE CASCADE
+      ON UPDATE CASCADE);
 
   Create table if not exists couriers(
     courier_id bigint AUTO_INCREMENT primary key,
@@ -155,7 +166,8 @@
     order_id bigint AUTO_INCREMENT primary key,
     order_date date Not Null,
     product_id bigint not null,
-    delivery_id bigint not null,
+    delivery_id bigint,
+    order_count int not null,
     constraint orders_deliveries
         FOREIGN KEY (delivery_id) REFERENCES deliveries (delivery_id)
         ON DELETE CASCADE
