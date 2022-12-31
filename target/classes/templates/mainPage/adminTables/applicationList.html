@@ -94,7 +94,7 @@
 
                             <select required th:name="userClose.userId">
                                 <option disabled value="" selected>Выберите закр. пользователя</option>
-                                <option th:each="user : ${users}" th:value="${user.userId}"
+                                <option th:each="user : ${admins}" th:value="${user.userId}"
                                         th:utext="${user.username}"></option>
                             </select>
 
@@ -175,7 +175,7 @@
                             <div class="some-text" th:text="'Изменение заявки'">
                             </div>
                             <div class="update-application-inputs update-inputs">
-                                <select required th:name="user.userId">
+                                <select required th:name="userOpen.userId">
                                     <option disabled value="" selected>Выберите откр. пользователя</option>
                                     <option th:each="user : ${users}" th:value="${user.userId}"
                                             th:utext="${user.username}" th:selected="(${app.userOpen.userId}==${user.userId})"></option>
@@ -189,16 +189,16 @@
                                 <input type="date" class="update-application-input"
                                        placeholder="Время открытия"
                                        autofocus="true" required="required"
-                                       th:name="openDate" th:value="${app.openDate}"/>
+                                       th:name="openDate" th:value="${app.formatOpenDateForChange()}"/>
 
                                 <input type="date" class="update-application-input"
                                        placeholder="Время закрытия"
                                        autofocus="true" required="required"
-                                       th:name="closeDate" th:value="${app.closeDate}"/>
+                                       th:name="closeDate" th:value="${app.formatCloseDateForChange()}"/>
 
-                                <select required th:name="user.userId">
+                                <select required th:name="userClose.userId">
                                     <option disabled value="" selected>Выберите закр. пользователя</option>
-                                    <option th:each="user : ${users}" th:value="${user.userId}"
+                                    <option th:each="user : ${admins}" th:value="${user.userId}"
                                             th:utext="${user.username}" th:selected="(${app.userClose.userId}==${user.userId})"></option>
                                 </select>
 

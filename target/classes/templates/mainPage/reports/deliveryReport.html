@@ -70,11 +70,11 @@
             class="table-row">
 
             <td style="text-align: center; padding: 10px;">
-                <div class="table-cell" th:text="${product.supply.supplier.supplierId}">
+                <div class="table-cell" th:text="${product.supply.delivery.deliveryId}">
                 </div>
             </td>
             <td style="text-align: center">
-                <div class="table-cell" th:text="${product.supply.supplier.title}">
+                <div class="table-cell" th:text="${product.supply.delivery.title}">
                 </div>
             </td>
             <td style="text-align: center">
@@ -93,6 +93,9 @@
                 <div class="table-cell" th:text="${product.price}">
                 </div>
             </td>
+
+
+
         </tr>
         </tbody>
     </table>
