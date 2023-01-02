@@ -371,11 +371,11 @@ public class MainController {
         return "workPage/index";
     }
 
-    public List<User> getAdmins(){
+    public List<User> getAdmins() {
         List<User> users = userService.readAll();
         List<User> admins = new ArrayList<>();
-        for (User user : users){
-            if (user.isAdmin()){
+        for (User user : users) {
+            if (user.isAdmin()) {
                 admins.add(user);
             }
         }
@@ -450,11 +450,11 @@ public class MainController {
         return supplyProducts;
     }
 
-    public List<Order> getNonDeliveredOrders(){
+    public List<Order> getNonDeliveredOrders() {
         List<Order> orders = orderService.readAll();
         List<Order> newOrders = new ArrayList<>();
-        for(Order order : orders){
-            if(order.getDelivery() == null){
+        for (Order order : orders) {
+            if (order.getDelivery() == null) {
                 newOrders.add(order);
             }
         }
@@ -480,7 +480,6 @@ public class MainController {
     }
 
 
-
     @GetMapping({"/mainPage/index/productSupplyList"})
     public String productSupplyList(Model model, Principal user) {
         model.addAttribute("checkUser", userService.findByUsername(user.getName()));
@@ -488,11 +487,18 @@ public class MainController {
         return "redirect:/mainPage/index";
     }
 
+    @GetMapping({"/referencePage/index"})
+    public String referencePage(Model model, Principal user) {
+        model.addAttribute("checkUser", userService.findByUsername(user.getName()));
+        return "referencePage/index";
+    }
+
     @PostMapping("/mainPage/index/productSupplyList/add")
     public String productSupplyListAdd(Model model, @ModelAttribute("newSupplyProduct") SupplyProduct supplyProduct, Principal user) {
         model.addAttribute("checkUser", userService.findByUsername(user.getName()));
         Supply supply = supplyService.readById(supplyProduct.getSupply().getSupplyId());
-        supply.getProducts().add(supplyProduct.getProduct());
+        supply.getProducts().add(productService.readById(supplyProduct.getProduct().getProductId()));
+
         supplyService.update(supply.getSupplyId(), supply);
         return "redirect:/mainPage/index";
     }
@@ -522,11 +528,26 @@ public class MainController {
         Product product = productService.readById(order.getProduct().getProductId());
         product.setProductCount(product.getProductCount() - order.getOrderCount());
         if (product.getProductCount() >= 0) {
-            productService.update(product.getProductId(),product);
-            orderService.create(order);
+            productService.update(product.getProductId(), product);
+            order = orderService.create(order);
+            order.setProduct(productService.readById(order.getProduct().getProductId()));
+            model.addAttribute("order", order);
+            someOrder = order;
+            return "redirect:/workPage/specification";
         }
         return "redirect:/workPage/index";
     }
+
+    Order someOrder;
+
+    @GetMapping({"/workPage/specification"})
+    public String specificationPage(Model model, Principal user) {
+        System.out.println(someOrder);
+        model.addAttribute("checkUser", userService.findByUsername(user.getName()));
+        model.addAttribute("order", someOrder);
+        return "workPage/specification";
+    }
+
 
     public List<SupplyProduct> getProductSupplyList() {
         List<Product> products = productService.readAll();

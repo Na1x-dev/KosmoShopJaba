@@ -48,7 +48,7 @@ public class Order {
     }
 
     public Double getFinalPrice() {
-        return orderCount * product.price;
+        return orderCount * product.getPrice();
     }
 
     @Override

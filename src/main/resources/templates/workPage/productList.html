@@ -7,10 +7,10 @@
                 <div class="some-text" th:text="'Новая покупка'">
                 </div>
                 <div class="new-product-inputs new-inputs">
-                    <select required name="product.productId" >
+                    <select required name="product.productId">
                         <option disabled value="" selected>Выберите товар</option>
                         <option th:each="product : ${products}" th:value="${product.productId}"
-                                th:utext="${product.title}" ></option>
+                                th:utext="${product.title}"></option>
                     </select>
 
                     <input type="number" min="0" class="new-product-input"
@@ -35,7 +35,7 @@
                                         dialogCloseButton.onclick = function(){
                                         addDialog.close();}">Добавить
         </a>
-        <div>
+    </div>
 
     <table th:if="${tableMode.mode==2}" class="table">
         <thead>
@@ -74,8 +74,12 @@
             </td>
 
 
-
         </tr>
         </tbody>
     </table>
+
+
 </div>
+
+
+
