@@ -129,3 +129,9 @@ select, input{
 
 
 
+.reference-images{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+

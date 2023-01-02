@@ -64,68 +64,68 @@
             <th style="width: 10%">Закрыл</th>
             <th style="width: 10%">Статус</th>
             <th style="width: 30%">Комментарий</th>
-            <th colspan="2">
-                <dialog id="add-dialog" class="add-dialog dialog">
-                    <form th:fragment="new-application-form" class="new-application-container"
-                          th:action="@{/mainPage/index/applicationList/add}" method="post">
-                        <div class="some-text" th:text="'Новая заявка'">
-                        </div>
-                        <div class="new-application-inputs new-inputs">
-                            <select required th:name="userOpen.userId">
-                                <option disabled value="" selected>Выберите откр. пользователя</option>
-                                <option th:each="user : ${users}" th:value="${user.userId}"
-                                        th:utext="${user.username}"></option>
-                            </select>
+<!--            <th colspan="2">-->
+<!--                <dialog id="add-dialog" class="add-dialog dialog">-->
+<!--                    <form th:fragment="new-application-form" class="new-application-container"-->
+<!--                          th:action="@{/mainPage/index/applicationList/add}" method="post">-->
+<!--                        <div class="some-text" th:text="'Новая заявка'">-->
+<!--                        </div>-->
+<!--                        <div class="new-application-inputs new-inputs">-->
+<!--                            <select required th:name="userOpen.userId">-->
+<!--                                <option disabled value="" selected>Выберите откр. пользователя</option>-->
+<!--                                <option th:each="user : ${users}" th:value="${user.userId}"-->
+<!--                                        th:utext="${user.username}"></option>-->
+<!--                            </select>-->
 
-                            <input type="text" class="new-application-input"
-                                   placeholder="Описание"
-                                   autofocus="true" required="required"
-                                   th:name="description"/>
+<!--                            <input type="text" class="new-application-input"-->
+<!--                                   placeholder="Описание"-->
+<!--                                   autofocus="true" required="required"-->
+<!--                                   th:name="description"/>-->
 
-                            <input type="date" class="new-application-input"
-                                   placeholder="Время открытия"
-                                   autofocus="true" required="required"
-                                   th:name="openDate"/>
+<!--                            <input type="date" class="new-application-input"-->
+<!--                                   placeholder="Время открытия"-->
+<!--                                   autofocus="true" required="required"-->
+<!--                                   th:name="openDate"/>-->
 
-                            <input type="date" class="new-application-input"
-                                   placeholder="Время закрытия"
-                                   autofocus="true" required="required"
-                                   th:name="closeDate"/>
+<!--                            <input type="date" class="new-application-input"-->
+<!--                                   placeholder="Время закрытия"-->
+<!--                                   autofocus="true" required="required"-->
+<!--                                   th:name="closeDate"/>-->
 
-                            <select required th:name="userClose.userId">
-                                <option disabled value="" selected>Выберите закр. пользователя</option>
-                                <option th:each="user : ${admins}" th:value="${user.userId}"
-                                        th:utext="${user.username}"></option>
-                            </select>
+<!--                            <select required th:name="userClose.userId">-->
+<!--                                <option disabled value="" selected>Выберите закр. пользователя</option>-->
+<!--                                <option th:each="user : ${admins}" th:value="${user.userId}"-->
+<!--                                        th:utext="${user.username}"></option>-->
+<!--                            </select>-->
 
-                            <select required th:name="status.statusId">
-                                <option disabled value="" selected>Выберите статус</option>
-                                <option th:each="status : ${statuses}" th:value="${status.statusId}"
-                                        th:utext="${status.title}"></option>
-                            </select>
+<!--                            <select required th:name="status.statusId">-->
+<!--                                <option disabled value="" selected>Выберите статус</option>-->
+<!--                                <option th:each="status : ${statuses}" th:value="${status.statusId}"-->
+<!--                                        th:utext="${status.title}"></option>-->
+<!--                            </select>-->
 
-                            <input type="text" class="new-application-input"
-                                   placeholder="Комментарии"
-                                   autofocus="true" required="required"
-                                   th:name="comment"/>
+<!--                            <input type="text" class="new-application-input"-->
+<!--                                   placeholder="Комментарии"-->
+<!--                                   autofocus="true" required="required"-->
+<!--                                   th:name="comment"/>-->
 
-                        </div>
-                        <div class="bottom-new-application-buttons">
-                            <button type="submit" class="confirm-add-new-application-button dialog-button">Добавить</button>
-                            <button type="button" class="close-add-dialog dialog-button">Отмена</button>
-                        </div>
-                    </form>
+<!--                        </div>-->
+<!--                        <div class="bottom-new-application-buttons">-->
+<!--                            <button type="submit" class="confirm-add-new-application-button dialog-button">Добавить</button>-->
+<!--                            <button type="button" class="close-add-dialog dialog-button">Отмена</button>-->
+<!--                        </div>-->
+<!--                    </form>-->
 
-                </dialog>
-                <a class="new-application-add-button open-add-dialog open-dialog" th:onclick="
-                                        let divParent = this.closest('div');
-                                        let dialogCloseButton = divParent.querySelector('.new-application-container').querySelector('.bottom-new-application-buttons').querySelector('.close-add-dialog');
-                                        let addDialog = divParent.querySelector('#add-dialog');
-                                        addDialog.show();
-                                        dialogCloseButton.onclick = function(){
-                                        addDialog.close();}">Добавить
-                </a>
-            </th>
+<!--                </dialog>-->
+<!--                <a class="new-application-add-button open-add-dialog open-dialog" th:onclick="-->
+<!--                                        let divParent = this.closest('div');-->
+<!--                                        let dialogCloseButton = divParent.querySelector('.new-application-container').querySelector('.bottom-new-application-buttons').querySelector('.close-add-dialog');-->
+<!--                                        let addDialog = divParent.querySelector('#add-dialog');-->
+<!--                                        addDialog.show();-->
+<!--                                        dialogCloseButton.onclick = function(){-->
+<!--                                        addDialog.close();}">Добавить-->
+<!--                </a>-->
+<!--            </th>-->
         </tr>
         </thead>
         <tbody>
@@ -181,17 +181,17 @@
                                             th:utext="${user.username}" th:selected="(${app.userOpen.userId}==${user.userId})"></option>
                                 </select>
 
-                                <input type="text" class="update-application-input"
+                                <input type="text" readonly class="update-application-input"
                                        placeholder="Описание"
                                        autofocus="true" required="required"
                                        th:name="description" th:value="${app.description}"/>
 
-                                <input type="date" class="update-application-input"
+                                <input type="date" readonly class="update-application-input"
                                        placeholder="Время открытия"
                                        autofocus="true" required="required"
                                        th:name="openDate" th:value="${app.formatOpenDateForChange()}"/>
 
-                                <input type="date" class="update-application-input"
+                                <input type="date" readonly class="update-application-input"
                                        placeholder="Время закрытия"
                                        autofocus="true" required="required"
                                        th:name="closeDate" th:value="${app.formatCloseDateForChange()}"/>
@@ -208,7 +208,7 @@
                                             th:utext="${status.title}" th:selected="(${app.status.statusId}==${status.statusId})"></option>
                                 </select>
 
-                                <input type="text" class="update-application-input"
+                                <input readonly type="text" class="update-application-input"
                                        placeholder="Комментарии"
                                        autofocus="true" required="required"
                                        th:name="comment" th:value="${app.comment}"/>

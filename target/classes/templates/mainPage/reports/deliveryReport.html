@@ -65,37 +65,34 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="i : ${#numbers.sequence(products.size() - 1, 0, -1)}"
-            th:with="product=${products[i]}"
+        <tr th:each="i : ${#numbers.sequence(suppliesProducts.size() - 1, 0, -1)}"
+            th:with="supProd=${suppliesProducts[i]}"
             class="table-row">
 
             <td style="text-align: center; padding: 10px;">
-                <div class="table-cell" th:text="${product.supply.delivery.deliveryId}">
+                <div class="table-cell" th:text="${supProd.supply.supplier.supplierId}">
                 </div>
             </td>
             <td style="text-align: center">
-                <div class="table-cell" th:text="${product.supply.delivery.title}">
+                <div class="table-cell" th:text="${supProd.supply.supplier.title}">
                 </div>
             </td>
             <td style="text-align: center">
-                <div class="table-cell" th:text="${product.supply.getDateInNormalFormat()}">
+                <div class="table-cell" th:text="${supProd.supply.getDateInNormalFormat()}">
                 </div>
             </td>
             <td style="text-align: center">
-                <div class="table-cell" th:text="${product.title}">
+                <div class="table-cell" th:text="${supProd.product.title}">
                 </div>
             </td>
             <td style="text-align: center">
-                <div class="table-cell" th:text="${product.productCount}">
+                <div class="table-cell" th:text="${supProd.product.productCount}">
                 </div>
             </td>
             <td style="text-align: center">
-                <div class="table-cell" th:text="${product.price}">
+                <div class="table-cell" th:text="${supProd.product.price}">
                 </div>
             </td>
-
-
-
         </tr>
         </tbody>
     </table>
