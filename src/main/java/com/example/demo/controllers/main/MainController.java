@@ -496,9 +496,18 @@ public class MainController {
     @PostMapping("/mainPage/index/productSupplyList/add")
     public String productSupplyListAdd(Model model, @ModelAttribute("newSupplyProduct") SupplyProduct supplyProduct, Principal user) {
         model.addAttribute("checkUser", userService.findByUsername(user.getName()));
-        Supply supply = supplyService.readById(supplyProduct.getSupply().getSupplyId());
-        supply.getProducts().add(productService.readById(supplyProduct.getProduct().getProductId()));
 
+        System.out.println(supplyProduct.toString());
+
+        Supply supply = supplyService.readById(supplyProduct.getSupply().getSupplyId());
+        Product product = productService.readById(supplyProduct.getProduct().getProductId());
+        product.getSupplies().add(supply);
+        supply.getProducts().add(product);
+
+        System.out.println(supply.toString());
+        System.out.println(product.toString());
+
+//        productService.update(product.getProductId(), product);
         supplyService.update(supply.getSupplyId(), supply);
         return "redirect:/mainPage/index";
     }

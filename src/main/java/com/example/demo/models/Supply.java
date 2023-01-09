@@ -43,11 +43,17 @@ public class Supply {
     public Supply() {
     }
 
-//    public String formatDateForChange() {
-//        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-//        return format.format(meetingMinuteDate);
-//    }
-//
+
+    @Override
+    public String toString() {
+        return "Supply{" +
+                "supplyId=" + supplyId +
+                ", supplyDate=" + supplyDate +
+                ", supplier=" + supplier +
+                ", products=" + products +
+                '}';
+    }
+
     public String getDateInNormalFormat() {
         SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
         return format.format(supplyDate);

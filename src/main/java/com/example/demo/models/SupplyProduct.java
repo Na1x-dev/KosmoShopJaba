@@ -13,5 +13,14 @@ public class SupplyProduct {
 
     public SupplyProduct() {
 
+
+    }
+
+    @Override
+    public String toString() {
+        return "SupplyProduct{" +
+                "product=" + product.getProductId() +
+                ", supply=" + supply.getSupplyId() +
+                '}';
     }
 }
